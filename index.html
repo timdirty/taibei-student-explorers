@@ -58,6 +58,46 @@
       </a>
     </div>
   </section>
+  <section class="competition-hub" aria-label="比賽上台實戰備戰中心">
+    <div class="comp-hub-head">
+      <h2>🏆 比賽上台實戰備戰中心（3 分鐘排練 · 隊員分工 · 評審必考 Q&amp;A · 列印手卡）</h2>
+      <span>點開各隊簡報即可依隊員 A/B/C 分段計時排練、連續語音跟讀、隨機抽考 Q&amp;A 與一鍵列印 A4 手卡</span>
+    </div>
+    <div class="comp-hub-actions">
+      <a class="comp-action-btn comp-food" href="slides.html?team=food&amp;page=1">🍱 食光偵探｜11頁排練與手卡</a>
+      <a class="comp-action-btn comp-sound" href="slides.html?team=sound&amp;page=1">🎧 聲景智探｜11頁排練與手卡</a>
+    </div>
+    <div class="comp-role-badges" role="list" aria-label="3分鐘隊員分工時間配置">
+      <span class="comp-role-pill" role="listitem">👥 隊員 A：P1–P3（45秒 開場與動機）</span>
+      <span class="comp-role-pill" role="listitem">👥 隊員 B：P4–P6（45秒 方法與操作）</span>
+      <span class="comp-role-pill" role="listitem">👥 隊員 C：P7–P10（80秒 AI與大數據成果）</span>
+      <span class="comp-role-pill" role="listitem">👥 全員合聲：P11（15秒 總結邀請）</span>
+    </div>
+    <div class="comp-qa-grid">
+      <details class="comp-qa-drawer comp-qa-food">
+        <summary>🍱 食光偵探｜評審必考 6 題 Q&amp;A 速查（點開直接看滿分回答）</summary>
+        <ul class="comp-qa-items">
+          <li><strong>Q1｜AI 怎麼只靠一張餐盤照片就知道剩下幾公克？準確嗎？</strong><p>結合學校公告菜單與教育部校園食材登錄平臺官方基準重量（白飯滿格約 180g、主菜約 90g、青菜約 85g），視覺 AI 辨識各格剩餘面積比例換算克數，同時標示信心度並搭配電子秤校準。</p></li>
+          <li><strong>Q2｜兩餐對照剩食從 162g 降到 14g（減少 91%），是菜色不同還是 AI 策略有用？</strong><p>這是同一位同學（plate-06 與 plate-07）真實追蹤！第一餐先吃白飯太快飽導致青菜剩 80g、排骨剩 72g；第二餐採用 AI 推薦「白飯先盛 3/4 碗、趁熱先吃 3 口青菜配主菜」，自然只剩 14g 且剛剛好飽。</p></li>
+          <li><strong>Q3｜個人餐盤紀錄怎麼變成「班級」到「全校」的口味喜好預測？</strong><p>三層架構：第一層幫個人調配份量；第二層統計全班各道菜平均剩食；第三層串接全校 23 天、147 道教育部食材登錄菜色與回饋，發現蒜炒、蛋炒、香酥魚排接受度逾 92%，能提前幫學校調整菜單預防剩食。</p></li>
+          <li><strong>Q4｜如果同學正在長身體，先盛 3/4 碗飯會不會吃不飽？</strong><p>核心原則是「吃得剛剛好飽、健康零浪費」！AI 策略保留「吃完還餓再去添飯或加菜」，且餐後會勾選飽足感（剛剛好／還想再吃／太撐），若還想再吃，下一餐自動調高建議份量。</p></li>
+          <li><strong>Q5｜累積校園午餐大數據，對營養師和團膳廚房有什麼幫助？</strong><p>整合 40 天菜單、23 天實登熱量（707–905 大卡）與分格克數，能幫廚房精準掌握各班備餐量，並幫營養師把常剩蔬菜改成受歡迎的料理法。</p></li>
+          <li><strong>Q6｜其他學校也能用嗎？同學的資料會不會外洩？</strong><p>全台國中小皆串接教育部食材登錄平臺，匯入菜單即可跨校使用；餐盤紀錄保存在平板本機資料庫（IndexedDB），只用代號、不拍臉部，並支援 JSON 備份，兼顧隱私與推廣。</p></li>
+        </ul>
+      </details>
+      <details class="comp-qa-drawer comp-qa-sound">
+        <summary>🎧 聲景智探｜評審必考 6 題 Q&amp;A 速查（點開直接看滿分回答）</summary>
+        <ul class="comp-qa-items">
+          <li><strong>Q1｜簡報上的「負 17.8 dBFS」跟「負 52.6 dBFS」是什麼意思？為什麼是負數？</strong><p>dBFS 以 0 dBFS 為麥克風破音上限，因此數值皆為負數，「越接近 0 聲音越大、負越多越安靜」！福林路尖峰車陣 -17.8 dBFS 很吵，住家清晨山景陽台 -52.6 dBFS 超安靜，相差近 35 分貝。</p></li>
+          <li><strong>Q2｜不同平板麥克風靈敏度不同，怎麼公平比較路線 A 和路線 B？</strong><p>我們制定「同機、同時段、15 秒定點採集」科學控制變因規範！系統會檢查是否為同一台裝置（deviceId）與完整 15 秒未破音樣本，確保路線 B 比路線 A 減弱逾 8 分貝是真實環境差異。</p></li>
+          <li><strong>Q3｜AI 聲學模型（YAMNet）如果聽錯怎麼辦？為什麼還要「人耳盲聽」？</strong><p>我們設計「人耳主觀感受 × AI 客觀聲學雙重驗證」！AI 快速算出頻譜與 521 類聲源機率，但只有人耳能感受聲音讓人緊張或舒服，兩者結合加上現場照片才是最完整的聲景證據。</p></li>
+          <li><strong>Q4｜什麼是「城市聲音時光機」？要怎麼運作？</strong><p>在同一生活圈持續累積跨時段（07:30 通學、10:30 上課施工、16:30 放學垃圾車、21:00 夜晚至清晨）與跨月份的「照片＋原音」大數據，拉動地圖時間軸就能回溯施工前後與四季聲景演變。</p></li>
+          <li><strong>Q5｜「智慧通學與探索路線規劃」實際怎麼幫助同學和社區居民？</strong><p>透過 50 個公開據點與 17 處實測原音比對，發現避開大馬路施工側（路線 A -17.8 dBFS）、改走退縮人行道與志成公園河濱（路線 B -26.5 dBFS），音量降低逾 8 分貝，走起來更安靜安全。</p></li>
+          <li><strong>Q6｜在街上或校園錄音拍照，怎麼保護路人與同學的隱私？</strong><p>遵守三大隱私原則：每段只錄 15 秒環境背景音不錄私人對話、音檔與照片優先存於平板本機並支援 JSON 備份、公開展示的 17 處樣本皆聚焦環境景觀並完成去識別化處理。</p></li>
+        </ul>
+      </details>
+    </div>
+  </section>
   <div class="projects">
     <article id="food-project" class="project food" aria-labelledby="food-title" tabindex="-1">
       <img class="project-hero" src="img/food-hero.webp" width="168" height="168" alt="">

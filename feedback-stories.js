@@ -14,7 +14,9 @@ export function installFeedbackExplorer(doc, win) {
   const storySource = byId('story-source');
   if (storySource) {
     storySource.dataset.sourceLabel = SOURCE_LABEL;
-    if (!storySource.textContent.trim()) storySource.textContent = SOURCE_LABEL;
+    const text = storySource.textContent.trim();
+    if (!text) storySource.textContent = SOURCE_LABEL;
+    else if (!text.includes(SOURCE_LABEL)) storySource.textContent = `${SOURCE_LABEL}｜${text}`;
   }
   const filters = { ...EMPTY_FILTERS };
   const params = new URLSearchParams(win.location.search);
@@ -48,7 +50,7 @@ export function installFeedbackExplorer(doc, win) {
     next.search = '';
     for (const [key, value] of Object.entries(filters)) if (value) next.searchParams.set(key, value);
     if (selectedId) next.searchParams.set('story', selectedId);
-    win.history.replaceState(null, '', next.href);
+    try { win.history.replaceState(null, '', next.href); } catch {}
   }
 
   function renderMethod(story) {

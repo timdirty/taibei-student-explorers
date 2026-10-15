@@ -16,6 +16,25 @@ function getSlidePaceHint(page, slide) {
 let continuousReading = false;
 let speechSessionId = 0;
 let renderedTeam = null;
+let activeRoleFilter = 'all';
+let lastRandomQaIndex = -1;
+let currentQuizItem = null;
+
+const ROLE_CONFIG = {
+  all: {pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], targetSeconds: 180},
+  A: {pages: [1, 2, 3], targetSeconds: 45},
+  B: {pages: [4, 5, 6], targetSeconds: 45},
+  C: {pages: [7, 8, 9, 10], targetSeconds: 80},
+  ALL11: {pages: [11], targetSeconds: 15},
+};
+
+function getRoleConfig() {
+  return ROLE_CONFIG[activeRoleFilter] || ROLE_CONFIG.all;
+}
+
+function getContinuousReadIdleLabel() {
+  return activeRoleFilter === 'all' ? '🔁 P1→P11 連續朗讀排練' : '🔁 連續朗讀本隊員段落';
+}
 
 function stopAllSpeech() {
   speechSessionId += 1;
@@ -27,13 +46,28 @@ function stopAllSpeech() {
   if (speakBtn) speakBtn.textContent = '🔊 聽講稿示範朗讀';
   const contBtn = byId('continuous-read-btn');
   if (contBtn) {
-    contBtn.textContent = '🔁 P1→P11 連續朗讀排練';
+    contBtn.textContent = getContinuousReadIdleLabel();
     contBtn.classList.remove('is-active');
   }
   const qaBtns = document.querySelectorAll?.('.qa-speak-btn') || [];
   for (const btn of qaBtns) {
     btn.textContent = '🔊 聽滿分回答';
     btn.dataset.speaking = 'false';
+  }
+}
+
+function speakTextOnce(text) {
+  const UtteranceCtor = window.SpeechSynthesisUtterance || (typeof SpeechSynthesisUtterance !== 'undefined' ? SpeechSynthesisUtterance : null);
+  if (!window.speechSynthesis || !UtteranceCtor || !text) return;
+  const session = ++speechSessionId;
+  const utterance = new UtteranceCtor(text);
+  utterance.lang = 'zh-TW';
+  utterance.rate = 0.96;
+  try {
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  } catch {
+    if (session === speechSessionId) stopAllSpeech();
   }
 }
 
@@ -58,7 +92,9 @@ function speakCurrentSlideForContinuous() {
     if (handled || session !== speechSessionId) return;
     handled = true;
     if (!continuousReading) return;
-    if (state.page < state.story.slides.length) {
+    const rolePages = getRoleConfig().pages;
+    const lastPage = Math.min(rolePages[rolePages.length - 1] || state.story.slides.length, state.story.slides.length);
+    if (state.page < lastPage) {
       showPage(state.page + 1, true, true);
       speakCurrentSlideForContinuous();
     } else {
@@ -178,16 +214,23 @@ function renderSlidePills(slides) {
   const pills = byId('slide-pills');
   if (!pills) return;
   const hadFocus = pills.contains(document.activeElement);
+  const rolePages = getRoleConfig().pages;
   pills.replaceChildren(...slides.map((item, index) => {
+    const pageNum = index + 1;
     const btn = document.createElement('button');
-    const isCurrent = index + 1 === state.page;
+    const isCurrent = pageNum === state.page;
+    const classes = ['slide-pill'];
+    if (isCurrent) classes.push('is-active');
+    if (activeRoleFilter !== 'all') {
+      classes.push(rolePages.includes(pageNum) ? 'is-role-target' : 'is-role-dimmed');
+    }
     btn.type = 'button';
-    btn.className = isCurrent ? 'slide-pill is-active' : 'slide-pill';
-    btn.textContent = `P${index + 1}`;
+    btn.className = classes.join(' ');
+    btn.textContent = `P${pageNum}`;
     btn.title = item.title;
-    btn.setAttribute('aria-label', `第 ${index + 1} 頁：${item.title}`);
+    btn.setAttribute('aria-label', `第 ${pageNum} 頁：${item.title}`);
     btn.setAttribute('aria-pressed', String(isCurrent));
-    btn.addEventListener('click', () => showPage(index + 1));
+    btn.addEventListener('click', () => showPage(pageNum));
     return btn;
   }));
   if (hadFocus) {
@@ -199,15 +242,22 @@ function renderSlideThumbnails(slides) {
   const grid = byId('slide-thumb-grid');
   if (!grid) return;
   const hadFocus = grid.contains(document.activeElement);
+  const rolePages = getRoleConfig().pages;
   grid.replaceChildren(...slides.map((item, index) => {
+    const pageNum = index + 1;
     const btn = document.createElement('button');
-    const isCurrent = index + 1 === state.page;
+    const isCurrent = pageNum === state.page;
+    const classes = ['slide-thumb-card'];
+    if (isCurrent) classes.push('is-active');
+    if (activeRoleFilter !== 'all') {
+      classes.push(rolePages.includes(pageNum) ? 'is-role-target' : 'is-role-dimmed');
+    }
     btn.type = 'button';
-    btn.className = isCurrent ? 'slide-thumb-card is-active' : 'slide-thumb-card';
+    btn.className = classes.join(' ');
     btn.setAttribute('aria-pressed', String(isCurrent));
-    btn.setAttribute('aria-label', `第 ${index + 1} 頁：${item.title}`);
+    btn.setAttribute('aria-label', `第 ${pageNum} 頁：${item.title}`);
     const img = document.createElement('img');
-    img.src = `slide-pages/${state.team}/${pad(index + 1)}.png`;
+    img.src = `slide-pages/${state.team}/${pad(pageNum)}.png`;
     img.loading = 'lazy';
     img.decoding = 'async';
     img.alt = '';
@@ -215,14 +265,14 @@ function renderSlideThumbnails(slides) {
     meta.className = 'slide-thumb-meta';
     const badge = document.createElement('span');
     badge.className = 'slide-thumb-badge';
-    badge.textContent = `P${index + 1}`;
+    badge.textContent = `P${pageNum}`;
     const title = document.createElement('strong');
     title.className = 'slide-thumb-title';
     title.textContent = item.title;
     meta.append(badge, title);
     btn.append(img, meta);
     btn.addEventListener('click', () => {
-      showPage(index + 1);
+      showPage(pageNum);
       byId('slide-main')?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
     });
     return btn;
@@ -305,6 +355,12 @@ function showPage(page, remember = true, keepContinuous = false) {
   renderSlideThumbnails(story.slides);
   if (renderedTeam !== team) {
     renderedTeam = team;
+    lastRandomQaIndex = -1;
+    currentQuizItem = null;
+    const quizBox = byId('qa-quiz-box');
+    const revealBtn = byId('reveal-qa-btn');
+    if (quizBox) quizBox.hidden = true;
+    if (revealBtn) revealBtn.hidden = true;
     renderJudgeQa(story);
     renderPrintableCueSheet(story);
   }
@@ -394,10 +450,62 @@ if (continuousReadBtn) {
     }
     stopAllSpeech();
     continuousReading = true;
-    if (state.page !== 1) {
-      showPage(1, true, true);
+    const firstPage = getRoleConfig().pages[0] || 1;
+    if (state.page !== firstPage) {
+      showPage(firstPage, true, true);
     }
     speakCurrentSlideForContinuous();
+  });
+}
+const roleFilterBtns = Array.from(document.querySelectorAll?.('.role-filter-btn') || []);
+for (const btn of roleFilterBtns) {
+  on(btn, 'click', () => {
+    const nextRole = btn.dataset.role || 'all';
+    activeRoleFilter = ROLE_CONFIG[nextRole] ? nextRole : 'all';
+    for (const b of roleFilterBtns) {
+      const active = (b.dataset.role || 'all') === activeRoleFilter;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-pressed', String(active));
+    }
+    const firstPage = getRoleConfig().pages[0] || 1;
+    showPage(firstPage);
+    updateTimerDisplay();
+  });
+}
+const randomQaBtn = byId('random-qa-btn');
+const revealQaBtn = byId('reveal-qa-btn');
+if (randomQaBtn) {
+  on(randomQaBtn, 'click', () => {
+    const qaList = state.story.qa || [];
+    if (!qaList.length) return;
+    let idx = Math.floor(Math.random() * qaList.length);
+    if (qaList.length > 1 && idx === lastRandomQaIndex) {
+      idx = (idx + 1) % qaList.length;
+    }
+    lastRandomQaIndex = idx;
+    currentQuizItem = qaList[idx];
+    const quizBox = byId('qa-quiz-box');
+    const quizQ = byId('qa-quiz-question');
+    const quizA = byId('qa-quiz-answer');
+    if (quizBox) quizBox.hidden = false;
+    if (quizQ) quizQ.textContent = `🎤 評審提問：${currentQuizItem.q}（請先試著回答 15 秒，再按「揭曉滿分回答」！）`;
+    if (quizA) {
+      quizA.hidden = true;
+      quizA.textContent = `💡 滿分回答：${currentQuizItem.a}`;
+    }
+    if (revealQaBtn) revealQaBtn.hidden = false;
+    stopAllSpeech();
+    speakTextOnce(currentQuizItem.q);
+  });
+}
+if (revealQaBtn) {
+  on(revealQaBtn, 'click', () => {
+    const quizA = byId('qa-quiz-answer');
+    if (quizA) quizA.hidden = false;
+    if (currentQuizItem?.a) {
+      stopAllSpeech();
+      speakTextOnce(currentQuizItem.a);
+    }
   });
 }
 const printCueCardsBtn = byId('print-cue-cards-btn');
@@ -420,23 +528,31 @@ if (copyScriptBtn) {
   on(copyScriptBtn, 'click', async () => {
     const text = byId('speaker-text')?.textContent || '';
     const clipboard = window.navigator?.clipboard ?? (typeof navigator !== 'undefined' ? navigator.clipboard : null);
-    if (!clipboard || typeof clipboard.writeText !== 'function') return;
-    try {
-      await clipboard.writeText(text);
-      copyScriptBtn.textContent = '✓ 已複製講稿';
+    const scheduleReset = (ms) => {
       if (copyResetTimer) clearTimeout(copyResetTimer);
       copyResetTimer = setTimeout(() => {
         copyScriptBtn.textContent = '📋 複製本頁講稿';
-      }, 1800);
+      }, ms);
+    };
+    if (!clipboard || typeof clipboard.writeText !== 'function') {
+      copyScriptBtn.textContent = '請長按講稿文字複製';
+      scheduleReset(2200);
+      return;
+    }
+    try {
+      await clipboard.writeText(text);
+      copyScriptBtn.textContent = '✓ 已複製講稿';
+      scheduleReset(1800);
     } catch {
-      // Do not falsely report copied if clipboard write fails.
+      copyScriptBtn.textContent = '請長按講稿文字複製';
+      scheduleReset(2200);
     }
   });
 }
 const fullscreenBtn = byId('fullscreen-slide');
 if (fullscreenBtn) {
   on(fullscreenBtn, 'click', () => {
-    const target = document.querySelector?.('.slide-figure') || byId('slide-main');
+    const target = document.querySelector?.('.slide-card') || document.querySelector?.('.slide-figure') || byId('slide-main');
     if (!target) return;
     if (document.fullscreenElement) {
       document.exitFullscreen?.()?.catch?.(() => {});
@@ -462,15 +578,18 @@ function currentElapsedMs() {
 }
 
 function formatClock(sec) {
+  const target = getRoleConfig().targetSeconds;
   const m = String(Math.floor(sec / 60)).padStart(2, '0');
   const s = String(sec % 60).padStart(2, '0');
-  return `${m}:${s} / 03:00`;
+  const tm = String(Math.floor(target / 60)).padStart(2, '0');
+  const ts = String(target % 60).padStart(2, '0');
+  return `${m}:${s} / ${tm}:${ts}`;
 }
 
 function updateTimerDisplay() {
   const sec = Math.floor(currentElapsedMs() / 1000);
   if (timerDisplay) timerDisplay.textContent = formatClock(sec);
-  if (timerBar) timerBar.classList.toggle('is-overtime', sec > 180);
+  if (timerBar) timerBar.classList.toggle('is-overtime', sec > getRoleConfig().targetSeconds);
 }
 
 if (timerToggleBtn) {
@@ -513,6 +632,7 @@ if (timerResetBtn) {
 }
 
 on(window, 'popstate', () => {state=resolveStory(window.location.search); showPage(state.page, false);});
+on(window, 'pagehide', stopAllSpeech);
 on(window, 'keydown', event => {
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.defaultPrevented || event.target?.closest?.('input,textarea,select,[contenteditable="true"]')) return;
   if (event.key === 'ArrowRight' && state.page < TEAM_STORIES[state.team].slides.length) {event.preventDefault(); showPage(state.page+1);}

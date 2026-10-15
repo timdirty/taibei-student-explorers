@@ -29,6 +29,14 @@
       <button id="timer-reset-btn" class="timer-btn timer-btn-secondary" type="button">↺ 重設</button>
     </div>
   </div>
+  <div id="role-filter-bar" class="role-filter-bar" role="group" aria-label="依隊員分工篩選排練段落">
+    <span class="role-filter-label">👥 分工排練：</span>
+    <button type="button" class="role-filter-btn is-active" data-role="all" aria-pressed="true">全部 P1–P11（180秒）</button>
+    <button type="button" class="role-filter-btn" data-role="A" aria-pressed="false">隊員 A｜P1–P3（45秒）</button>
+    <button type="button" class="role-filter-btn" data-role="B" aria-pressed="false">隊員 B｜P4–P6（45秒）</button>
+    <button type="button" class="role-filter-btn" data-role="C" aria-pressed="false">隊員 C｜P7–P10（80秒）</button>
+    <button type="button" class="role-filter-btn" data-role="ALL11" aria-pressed="false">全員合聲｜P11（15秒）</button>
+  </div>
   <div class="player-layout">
     <figure class="slide-figure"><img id="slide-image" width="1280" height="720" src="slide-pages/food/01.png" alt="食光偵探第1頁，讓午餐剛剛好"><figcaption id="page-status" aria-live="polite" aria-atomic="true">第 1 頁，共 11 頁</figcaption><p id="image-error" role="alert" hidden>這頁圖片沒打開，可以先看 PDF，或再換一頁。<a id="error-pdf-link" href="slides/食光偵探_11頁學生簡報.pdf" target="_blank" rel="noopener">點此直接開啟當頁 PDF</a></p></figure>
     <section class="try-now" aria-labelledby="page-title"><h2 id="page-title">讓午餐剛剛好</h2><a class="journey-primary" id="try-action" href="food.html" target="_blank" rel="noopener noreferrer">開始我的午餐任務</a><div class="act-links" id="page-extra-actions" hidden></div><p class="return-hint">作品在另一個分頁打開，做完再回來繼續說。</p><details class="speaker" open><summary>🎤 報告講稿（上台可以這樣說）</summary><div class="speaker-tools"><button id="speak-slide-btn" class="speaker-tool-btn" type="button">🔊 聽講稿示範朗讀</button><button id="continuous-read-btn" class="speaker-tool-btn" type="button">🔁 P1→P11 連續朗讀排練</button><button id="copy-script-btn" class="speaker-tool-btn" type="button">📋 複製本頁講稿</button><button id="print-cue-cards-btn" class="speaker-tool-btn" type="button">🖨️ 列印手卡與 Q&A</button></div><div id="slide-role-bar" class="slide-role-bar"><span id="slide-role-badge" class="slide-role-badge">👥 隊員 A（開場與問題動機）</span><span id="slide-time-badge" class="slide-time-badge">⏱️ 建議 15 秒</span></div><p id="speaker-text"></p></details><a id="records-link" href="https://foodlens-school.vercel.app/presentation?view=mine" target="_blank" rel="noopener noreferrer">用我的紀錄說給大家聽</a><div id="slide-qr-box" class="slide-qr-box" aria-label="本隊作品快速掃描 QR Code"><a id="slide-qr-app" class="slide-qr-link" href="https://foodlens-school.vercel.app/" target="_blank" rel="noopener noreferrer"><img id="slide-qr-app-img" src="img/qr-foodlens.svg" width="76" height="76" alt="作品主系統 QR Code"><div><strong id="slide-qr-app-title">開啟食光偵探 App</strong><span>📱 掃描或點擊體驗</span></div></a><a id="slide-qr-feature" class="slide-qr-link" href="https://foodlens-school.vercel.app/scan?view=history" target="_blank" rel="noopener noreferrer"><img id="slide-qr-feature-img" src="img/qr-food-history.svg" width="76" height="76" alt="重點成果頁 QR Code"><div><strong id="slide-qr-feature-title">餐盤實測與大數據庫</strong><span>📱 掃描或點擊查看</span></div></a></div></section>
@@ -39,6 +47,16 @@
   </details>
   <details id="judge-qa-section" class="judge-qa-section" open>
     <summary>🏆 評審必考問答 Q&A 題庫（6 大必考題＋滿分回答＋語音朗讀練習）</summary>
+    <div id="qa-quiz-bar" class="qa-quiz-bar" role="region" aria-label="評審隨機抽考練習">
+      <div class="qa-quiz-actions">
+        <button id="random-qa-btn" class="speaker-tool-btn qa-quiz-btn" type="button">🎲 隨機抽考一題（先自己答再看滿分示範）</button>
+        <button id="reveal-qa-btn" class="speaker-tool-btn" type="button" hidden>👀 揭曉滿分回答並聽示範</button>
+      </div>
+      <div id="qa-quiz-box" class="qa-quiz-box" hidden>
+        <p id="qa-quiz-question" class="qa-quiz-question"></p>
+        <p id="qa-quiz-answer" class="qa-quiz-answer" hidden></p>
+      </div>
+    </div>
     <div id="judge-qa-list" class="judge-qa-list"></div>
   </details>
   <section id="printable-cue-sheet" class="printable-cue-sheet" aria-label="11 頁上台報告手卡全覽"></section>
