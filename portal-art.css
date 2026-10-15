@@ -64,7 +64,11 @@
 .comp-action-btn.comp-sound{background:#445a99}
 .comp-action-btn:hover{filter:brightness(.94);transform:translateY(-1px)}
 .comp-role-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.comp-role-pill{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:#eef3f9;border:1px solid #cbd5e1;color:#233044;font-size:13px;font-weight:700}
+.comp-role-pill{display:inline-flex;align-items:center;gap:4px;min-height:38px;padding:5px 12px;border-radius:999px;background:#eef3f9;border:1px solid #cbd5e1;color:#233044;font-size:13px;font-weight:700;text-decoration:none}
+a.comp-role-pill:hover{background:var(--accent,#236347);color:#fff;border-color:var(--accent,#236347)}
+.comp-role-team-link{color:#236347;font-weight:800;text-decoration:underline;text-underline-offset:2px}
+.comp-role-team-link:last-child{color:#445a99}
+.comp-role-team-link:hover{filter:brightness(.82)}
 .comp-qa-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .comp-qa-drawer{padding:10px 14px;border-radius:10px;border:1px solid #d5dce6;background:#fff}
 .comp-qa-drawer.comp-qa-food{border-left:4px solid #236347}

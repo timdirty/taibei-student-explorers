@@ -13,6 +13,19 @@ function getSlidePaceHint(page, slide) {
   return `本頁建議約 ${sec} 秒`;
 }
 
+function getSlideHandoffHint(page) {
+  if (page === 3) return '🔔 講完本頁交棒 ➔ 隊員 B（P4–P6）';
+  if (page === 6) return '🔔 講完本頁交棒 ➔ 隊員 C（P7–P10）';
+  if (page === 10) return '🔔 講完本頁交棒 ➔ 全員合聲（P11）';
+  if (page === 11) return '🎉 全員合聲總結 ➔ 邀請評審體驗與提問';
+  return '';
+}
+
+function getSpeechRate() {
+  const val = Number(byId('speech-rate-select')?.value);
+  return Number.isFinite(val) && val >= 0.5 && val <= 2 ? val : 0.96;
+}
+
 let continuousReading = false;
 let speechSessionId = 0;
 let renderedTeam = null;
@@ -62,7 +75,7 @@ function speakTextOnce(text) {
   const session = ++speechSessionId;
   const utterance = new UtteranceCtor(text);
   utterance.lang = 'zh-TW';
-  utterance.rate = 0.96;
+  utterance.rate = getSpeechRate();
   try {
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
@@ -81,7 +94,7 @@ function speakCurrentSlideForContinuous() {
   const text = byId('speaker-text')?.textContent || '';
   const utterance = new UtteranceCtor(text);
   utterance.lang = 'zh-TW';
-  utterance.rate = 0.96;
+  utterance.rate = getSpeechRate();
   const contBtn = byId('continuous-read-btn');
   if (contBtn) {
     contBtn.textContent = '⏹ 停止連續排練';
@@ -147,7 +160,7 @@ function renderJudgeQa(story) {
       const session = ++speechSessionId;
       const utterance = new UtteranceCtor(item.a);
       utterance.lang = 'zh-TW';
-      utterance.rate = 0.96;
+      utterance.rate = getSpeechRate();
       speakBtn.textContent = '⏹ 停止朗讀';
       speakBtn.dataset.speaking = 'true';
       const resetQaBtn = () => {
@@ -309,6 +322,12 @@ function showPage(page, remember = true, keepContinuous = false) {
   if (roleBadge) roleBadge.textContent = slide.role || '👥 隊員分工';
   const timeBadge = byId('slide-time-badge');
   if (timeBadge) timeBadge.textContent = `⏱️ 建議 ${slide.seconds || 15} 秒`;
+  const handoffBadge = byId('slide-handoff-badge');
+  if (handoffBadge) {
+    const handoffText = getSlideHandoffHint(state.page);
+    handoffBadge.textContent = handoffText;
+    handoffBadge.hidden = !handoffText;
+  }
   byId('page-status').textContent = `${story.name}第 ${state.page} 頁，共 ${story.slides.length} 頁`;
   byId('short-count').textContent = `${state.page} / ${story.slides.length}`;
   if (byId('page-number')) byId('page-number').textContent = `第 ${state.page} / ${story.slides.length} 頁`;
@@ -374,7 +393,11 @@ function showPage(page, remember = true, keepContinuous = false) {
     }
   }
   if (remember) {
-    const url = new URL(window.location.href); url.searchParams.set('team', team); url.searchParams.set('page', String(state.page));
+    const url = new URL(window.location.href);
+    url.searchParams.set('team', team);
+    url.searchParams.set('page', String(state.page));
+    if (activeRoleFilter !== 'all') url.searchParams.set('role', activeRoleFilter);
+    else url.searchParams.delete('role');
     try {window.history.replaceState(window.history.state, '', url);} catch { /* The controls still work when the browser cannot remember the page. */ }
   }
 }
@@ -423,7 +446,7 @@ if (speakSlideBtn) {
       const session = ++speechSessionId;
       const utterance = new UtteranceCtor(byId('speaker-text').textContent);
       utterance.lang = 'zh-TW';
-      utterance.rate = 0.96;
+      utterance.rate = getSpeechRate();
       speakSlideBtn.textContent = '⏹ 停止朗讀';
       const resetLabel = () => {
         if (session !== speechSessionId) return;
@@ -458,15 +481,18 @@ if (continuousReadBtn) {
   });
 }
 const roleFilterBtns = Array.from(document.querySelectorAll?.('.role-filter-btn') || []);
+function syncRoleFilterButtons() {
+  for (const b of roleFilterBtns) {
+    const active = (b.dataset.role || 'all') === activeRoleFilter;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', String(active));
+  }
+}
 for (const btn of roleFilterBtns) {
   on(btn, 'click', () => {
     const nextRole = btn.dataset.role || 'all';
     activeRoleFilter = ROLE_CONFIG[nextRole] ? nextRole : 'all';
-    for (const b of roleFilterBtns) {
-      const active = (b.dataset.role || 'all') === activeRoleFilter;
-      b.classList.toggle('is-active', active);
-      b.setAttribute('aria-pressed', String(active));
-    }
+    syncRoleFilterButtons();
     const firstPage = getRoleConfig().pages[0] || 1;
     showPage(firstPage);
     updateTimerDisplay();
@@ -508,19 +534,31 @@ if (revealQaBtn) {
     }
   });
 }
+let restoreQaCloseAfterPrint = false;
 const printCueCardsBtn = byId('print-cue-cards-btn');
 if (printCueCardsBtn) {
   on(printCueCardsBtn, 'click', () => {
     const qaSection = byId('judge-qa-section');
-    const wasOpen = qaSection ? qaSection.open : true;
-    if (qaSection) qaSection.open = true;
+    if (qaSection && !qaSection.open) {
+      restoreQaCloseAfterPrint = true;
+      qaSection.open = true;
+    }
     window.print?.();
-    if (qaSection && !wasOpen) qaSection.open = false;
   });
 }
 on(window, 'beforeprint', () => {
   const qaSection = byId('judge-qa-section');
-  if (qaSection) qaSection.open = true;
+  if (qaSection && !qaSection.open) {
+    restoreQaCloseAfterPrint = true;
+    qaSection.open = true;
+  }
+});
+on(window, 'afterprint', () => {
+  const qaSection = byId('judge-qa-section');
+  if (restoreQaCloseAfterPrint && qaSection) {
+    qaSection.open = false;
+    restoreQaCloseAfterPrint = false;
+  }
 });
 const copyScriptBtn = byId('copy-script-btn');
 let copyResetTimer = null;
@@ -631,15 +669,68 @@ if (timerResetBtn) {
   });
 }
 
-on(window, 'popstate', () => {state=resolveStory(window.location.search); showPage(state.page, false);});
+function applyUrlRoleAndPage(searchStr) {
+  state = resolveStory(searchStr);
+  const params = new URLSearchParams(searchStr);
+  const roleParam = params.get('role');
+  if (roleParam && ROLE_CONFIG[roleParam]) {
+    activeRoleFilter = roleParam;
+    if (!params.get('page')) {
+      state = resolveStory(`?team=${state.team}&page=${ROLE_CONFIG[roleParam].pages[0]}`);
+    }
+  } else {
+    activeRoleFilter = 'all';
+  }
+  syncRoleFilterButtons();
+  updateTimerDisplay();
+}
+
+on(window, 'popstate', () => {
+  applyUrlRoleAndPage(window.location.search);
+  showPage(state.page, false);
+});
 on(window, 'pagehide', stopAllSpeech);
 on(window, 'keydown', event => {
-  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.defaultPrevented || event.target?.closest?.('input,textarea,select,[contenteditable="true"]')) return;
-  if (event.key === 'ArrowRight' && state.page < TEAM_STORIES[state.team].slides.length) {event.preventDefault(); showPage(state.page+1);}
-  if (event.key === 'ArrowLeft' && state.page > 1) {event.preventDefault(); showPage(state.page-1);}
-  if (event.key === 'Home' && state.page > 1) {event.preventDefault(); showPage(1);}
-  if (event.key === 'End' && state.page < TEAM_STORIES[state.team].slides.length) {event.preventDefault(); showPage(TEAM_STORIES[state.team].slides.length);}
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.defaultPrevented) return;
+  const inFormField = Boolean(event.target?.closest?.('input,textarea,select,[contenteditable="true"]'));
+  if (inFormField) return;
+  const inInteractive = Boolean(event.target?.closest?.('button,a,input,textarea,select,summary,[contenteditable="true"]'));
+  if ((event.key === 'ArrowRight' || event.key === 'PageDown') && state.page < TEAM_STORIES[state.team].slides.length) {
+    event.preventDefault();
+    showPage(state.page + 1);
+    return;
+  }
+  if ((event.key === 'ArrowLeft' || event.key === 'PageUp') && state.page > 1) {
+    event.preventDefault();
+    showPage(state.page - 1);
+    return;
+  }
+  if (event.key === 'Home' && state.page > 1) {
+    event.preventDefault();
+    showPage(1);
+    return;
+  }
+  if (event.key === 'End' && state.page < TEAM_STORIES[state.team].slides.length) {
+    event.preventDefault();
+    showPage(TEAM_STORIES[state.team].slides.length);
+    return;
+  }
+  if (event.key === ' ' && !inInteractive && speakSlideBtn) {
+    event.preventDefault();
+    speakSlideBtn.click();
+    return;
+  }
+  if ((event.key === 'f' || event.key === 'F') && !inInteractive && fullscreenBtn) {
+    event.preventDefault();
+    fullscreenBtn.click();
+    return;
+  }
+  if ((event.key === 'r' || event.key === 'R') && !inInteractive && randomQaBtn) {
+    event.preventDefault();
+    randomQaBtn.click();
+  }
 });
+applyUrlRoleAndPage(window.location.search);
 showPage(state.page, false);
 function dispose() {
   stopAllSpeech();
