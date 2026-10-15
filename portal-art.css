@@ -49,4 +49,8 @@
   .survey-entry:has(.qr-card-survey){grid-template-columns:1fr}
   .qr-card-survey{flex-direction:row;text-align:left}
 }
-
+.slide-quick-jumps{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.slide-quick-jumps a{display:inline-flex;align-items:center;min-height:36px;padding:4px 12px;border-radius:999px;border:1px solid #c5d1e0;background:#fff;color:var(--accent,#236347);font-size:13px;font-weight:700;text-decoration:none;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.project.food .slide-quick-jumps a{--accent:#236347;border-color:#b7d9c8;background:#f2faf5}
+.project.sound .slide-quick-jumps a{--accent:#445a99;border-color:#c6d2f0;background:#f3f6fc}
+.slide-quick-jumps a:hover{background:var(--accent,#236347);color:#fff;border-color:var(--accent,#236347)}
