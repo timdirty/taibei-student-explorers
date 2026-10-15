@@ -155,15 +155,20 @@ if (speakSlideBtn) {
 const copyScriptBtn = byId('copy-script-btn');
 let copyResetTimer = null;
 if (copyScriptBtn) {
-  copyScriptBtn.addEventListener('click', () => {
+  copyScriptBtn.addEventListener('click', async () => {
     const text = byId('speaker-text')?.textContent || '';
     const clipboard = window.navigator?.clipboard ?? (typeof navigator !== 'undefined' ? navigator.clipboard : null);
-    try { clipboard?.writeText?.(text)?.catch?.(() => {}); } catch {}
-    copyScriptBtn.textContent = '✓ 已複製講稿';
-    if (copyResetTimer) clearTimeout(copyResetTimer);
-    copyResetTimer = setTimeout(() => {
-      copyScriptBtn.textContent = '📋 複製本頁講稿';
-    }, 1800);
+    if (!clipboard || typeof clipboard.writeText !== 'function') return;
+    try {
+      await clipboard.writeText(text);
+      copyScriptBtn.textContent = '✓ 已複製講稿';
+      if (copyResetTimer) clearTimeout(copyResetTimer);
+      copyResetTimer = setTimeout(() => {
+        copyScriptBtn.textContent = '📋 複製本頁講稿';
+      }, 1800);
+    } catch {
+      // Do not falsely report copied if clipboard write fails.
+    }
   });
 }
 const fullscreenBtn = byId('fullscreen-slide');
