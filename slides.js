@@ -6,10 +6,172 @@ let state = resolveStory(window.location.search);
 
 const pad = n => String(n).padStart(2, '0');
 
-function getSlidePaceHint(page) {
-  if (page >= 7 && page <= 10) return '核心亮點頁 · 建議約 20 秒';
-  if (page === 11) return '總結呼籲 · 建議約 15 秒';
-  return '本頁建議約 15 秒';
+function getSlidePaceHint(page, slide) {
+  const sec = slide?.seconds || (page >= 7 && page <= 10 ? 20 : 15);
+  if (page >= 7 && page <= 10) return `核心亮點頁 · 建議約 ${sec} 秒`;
+  if (page === 11) return `總結呼籲 · 建議約 ${sec} 秒`;
+  return `本頁建議約 ${sec} 秒`;
+}
+
+let continuousReading = false;
+let speechSessionId = 0;
+let renderedTeam = null;
+
+function stopAllSpeech() {
+  speechSessionId += 1;
+  continuousReading = false;
+  if (window.speechSynthesis) {
+    try { window.speechSynthesis.cancel(); } catch {}
+  }
+  const speakBtn = byId('speak-slide-btn');
+  if (speakBtn) speakBtn.textContent = '🔊 聽講稿示範朗讀';
+  const contBtn = byId('continuous-read-btn');
+  if (contBtn) {
+    contBtn.textContent = '🔁 P1→P11 連續朗讀排練';
+    contBtn.classList.remove('is-active');
+  }
+  const qaBtns = document.querySelectorAll?.('.qa-speak-btn') || [];
+  for (const btn of qaBtns) {
+    btn.textContent = '🔊 聽滿分回答';
+    btn.dataset.speaking = 'false';
+  }
+}
+
+function speakCurrentSlideForContinuous() {
+  const UtteranceCtor = window.SpeechSynthesisUtterance || (typeof SpeechSynthesisUtterance !== 'undefined' ? SpeechSynthesisUtterance : null);
+  if (!window.speechSynthesis || !UtteranceCtor || !continuousReading) {
+    stopAllSpeech();
+    return;
+  }
+  const session = ++speechSessionId;
+  const text = byId('speaker-text')?.textContent || '';
+  const utterance = new UtteranceCtor(text);
+  utterance.lang = 'zh-TW';
+  utterance.rate = 0.96;
+  const contBtn = byId('continuous-read-btn');
+  if (contBtn) {
+    contBtn.textContent = '⏹ 停止連續排練';
+    contBtn.classList.add('is-active');
+  }
+  let handled = false;
+  const handleEnd = () => {
+    if (handled || session !== speechSessionId) return;
+    handled = true;
+    if (!continuousReading) return;
+    if (state.page < state.story.slides.length) {
+      showPage(state.page + 1, true, true);
+      speakCurrentSlideForContinuous();
+    } else {
+      stopAllSpeech();
+    }
+  };
+  const handleError = () => {
+    if (handled || session !== speechSessionId) return;
+    handled = true;
+    stopAllSpeech();
+  };
+  utterance.onend = handleEnd;
+  utterance.onerror = handleError;
+  utterance.addEventListener?.('end', handleEnd);
+  utterance.addEventListener?.('error', handleError);
+  try {
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  } catch {
+    if (session === speechSessionId) stopAllSpeech();
+  }
+}
+
+function renderJudgeQa(story) {
+  const container = byId('judge-qa-list');
+  if (!container) return;
+  const qaItems = story.qa || [];
+  container.replaceChildren(...qaItems.map((item, idx) => {
+    const card = document.createElement('article');
+    card.className = 'judge-qa-card';
+    const head = document.createElement('div');
+    head.className = 'judge-qa-head';
+    const tag = document.createElement('span');
+    tag.className = 'judge-qa-tag';
+    tag.textContent = item.tag || `必考題 ${idx + 1}`;
+    const q = document.createElement('strong');
+    q.className = 'judge-qa-q';
+    q.textContent = item.q;
+    const speakBtn = document.createElement('button');
+    speakBtn.type = 'button';
+    speakBtn.className = 'speaker-tool-btn qa-speak-btn';
+    speakBtn.textContent = '🔊 聽滿分回答';
+    speakBtn.dataset.speaking = 'false';
+    speakBtn.addEventListener('click', () => {
+      const UtteranceCtor = window.SpeechSynthesisUtterance || (typeof SpeechSynthesisUtterance !== 'undefined' ? SpeechSynthesisUtterance : null);
+      if (!window.speechSynthesis || !UtteranceCtor) return;
+      const wasSpeakingThis = speakBtn.dataset.speaking === 'true' && window.speechSynthesis.speaking;
+      stopAllSpeech();
+      if (wasSpeakingThis) return;
+      const session = ++speechSessionId;
+      const utterance = new UtteranceCtor(item.a);
+      utterance.lang = 'zh-TW';
+      utterance.rate = 0.96;
+      speakBtn.textContent = '⏹ 停止朗讀';
+      speakBtn.dataset.speaking = 'true';
+      const resetQaBtn = () => {
+        if (session !== speechSessionId) return;
+        speakBtn.textContent = '🔊 聽滿分回答';
+        speakBtn.dataset.speaking = 'false';
+      };
+      utterance.onend = resetQaBtn;
+      utterance.onerror = resetQaBtn;
+      utterance.addEventListener?.('end', resetQaBtn);
+      utterance.addEventListener?.('error', resetQaBtn);
+      try {
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        resetQaBtn();
+      }
+    });
+    head.append(tag, q, speakBtn);
+    const ans = document.createElement('p');
+    ans.className = 'judge-qa-a';
+    ans.textContent = item.a;
+    card.append(head, ans);
+    return card;
+  }));
+}
+
+function renderPrintableCueSheet(story) {
+  const sheet = byId('printable-cue-sheet');
+  if (!sheet) return;
+  const heading = document.createElement('h2');
+  heading.className = 'printable-cue-heading';
+  heading.textContent = `🖨️ ${story.name}（${story.team}）｜11 頁上台報告手卡與分工總表`;
+  const grid = document.createElement('div');
+  grid.className = 'printable-cue-grid';
+  for (let i = 0; i < story.slides.length; i += 1) {
+    const item = story.slides[i];
+    const card = document.createElement('article');
+    card.className = 'printable-cue-card';
+    const meta = document.createElement('div');
+    meta.className = 'printable-cue-meta';
+    const pBadge = document.createElement('span');
+    pBadge.className = 'printable-cue-page';
+    pBadge.textContent = `P${i + 1}`;
+    const rBadge = document.createElement('span');
+    rBadge.className = 'printable-cue-role';
+    rBadge.textContent = item.role || '👥 隊員分工';
+    const tBadge = document.createElement('span');
+    tBadge.className = 'printable-cue-time';
+    tBadge.textContent = `⏱️ 建議 ${item.seconds || 15} 秒`;
+    meta.append(pBadge, rBadge, tBadge);
+    const title = document.createElement('strong');
+    title.className = 'printable-cue-title';
+    title.textContent = item.title;
+    const say = document.createElement('p');
+    say.className = 'printable-cue-say';
+    say.textContent = item.say;
+    card.append(meta, title, say);
+    grid.append(card);
+  }
+  sheet.replaceChildren(heading, grid);
 }
 
 function renderSlidePills(slides) {
@@ -70,7 +232,7 @@ function renderSlideThumbnails(slides) {
   }
 }
 
-function showPage(page, remember = true) {
+function showPage(page, remember = true, keepContinuous = false) {
   state = resolveStory(`?team=${state.team}&page=${page}`);
   const {team, story, slide} = state;
   document.body.dataset.team = team;
@@ -93,10 +255,14 @@ function showPage(page, remember = true) {
   }));
   byId('page-extra-actions').hidden = !(slide.extraActions?.length);
   byId('speaker-text').textContent = slide.say;
+  const roleBadge = byId('slide-role-badge');
+  if (roleBadge) roleBadge.textContent = slide.role || '👥 隊員分工';
+  const timeBadge = byId('slide-time-badge');
+  if (timeBadge) timeBadge.textContent = `⏱️ 建議 ${slide.seconds || 15} 秒`;
   byId('page-status').textContent = `${story.name}第 ${state.page} 頁，共 ${story.slides.length} 頁`;
   byId('short-count').textContent = `${state.page} / ${story.slides.length}`;
   if (byId('page-number')) byId('page-number').textContent = `第 ${state.page} / ${story.slides.length} 頁`;
-  if (byId('slide-pace-hint')) byId('slide-pace-hint').textContent = getSlidePaceHint(state.page);
+  if (byId('slide-pace-hint')) byId('slide-pace-hint').textContent = getSlidePaceHint(state.page, slide);
   byId('previous-slide').disabled = state.page === 1;
   byId('next-slide').disabled = state.page === story.slides.length;
   byId('records-link').href = team === 'food' ? FOOD_APP+'/presentation?view=mine' : SOUND_APP+'/competition';
@@ -109,11 +275,9 @@ function showPage(page, remember = true) {
     switchTeam.href = team === 'food' ? 'slides.html?team=sound&page=1' : 'slides.html?team=food&page=1';
     switchTeam.textContent = team === 'food' ? '切換至：聲景智探 ⇄' : '切換至：食光偵探 ⇄';
   }
-  if (window.speechSynthesis) {
-    try { window.speechSynthesis.cancel(); } catch {}
+  if (!keepContinuous) {
+    stopAllSpeech();
   }
-  const speakBtn = byId('speak-slide-btn');
-  if (speakBtn) speakBtn.textContent = '🔊 聽講稿示範朗讀';
   const copyBtn = byId('copy-script-btn');
   if (copyBtn) copyBtn.textContent = '📋 複製本頁講稿';
   const qrApp = byId('slide-qr-app');
@@ -139,6 +303,11 @@ function showPage(page, remember = true) {
   }
   renderSlidePills(story.slides);
   renderSlideThumbnails(story.slides);
+  if (renderedTeam !== team) {
+    renderedTeam = team;
+    renderJudgeQa(story);
+    renderPrintableCueSheet(story);
+  }
   const ImageCtor = window?.Image || (typeof Image !== 'undefined' ? Image : null);
   if (ImageCtor) {
     for (const adj of [state.page - 1, state.page + 1]) {
@@ -191,22 +360,24 @@ if (speakSlideBtn) {
   on(speakSlideBtn, 'click', () => {
     const UtteranceCtor = window.SpeechSynthesisUtterance || (typeof SpeechSynthesisUtterance !== 'undefined' ? SpeechSynthesisUtterance : null);
     if (window.speechSynthesis && UtteranceCtor) {
-      if (window.speechSynthesis.speaking) {
-        try { window.speechSynthesis.cancel(); } catch {}
-        speakSlideBtn.textContent = '🔊 聽講稿示範朗讀';
-        return;
-      }
+      const anyQaSpeaking = Array.from(document.querySelectorAll?.('.qa-speak-btn') || []).some(b => b.dataset.speaking === 'true');
+      const wasSpeakingSingle = !continuousReading && !anyQaSpeaking && (window.speechSynthesis.speaking || speakSlideBtn.textContent === '⏹ 停止朗讀');
+      stopAllSpeech();
+      if (wasSpeakingSingle) return;
+      const session = ++speechSessionId;
       const utterance = new UtteranceCtor(byId('speaker-text').textContent);
       utterance.lang = 'zh-TW';
       utterance.rate = 0.96;
       speakSlideBtn.textContent = '⏹ 停止朗讀';
-      const resetLabel = () => { speakSlideBtn.textContent = '🔊 聽講稿示範朗讀'; };
+      const resetLabel = () => {
+        if (session !== speechSessionId) return;
+        speakSlideBtn.textContent = '🔊 聽講稿示範朗讀';
+      };
       utterance.onend = resetLabel;
       utterance.onerror = resetLabel;
       utterance.addEventListener?.('end', resetLabel);
       utterance.addEventListener?.('error', resetLabel);
       try {
-        window.speechSynthesis.cancel();
         window.speechSynthesis.speak(utterance);
       } catch {
         resetLabel();
@@ -214,6 +385,35 @@ if (speakSlideBtn) {
     }
   });
 }
+const continuousReadBtn = byId('continuous-read-btn');
+if (continuousReadBtn) {
+  on(continuousReadBtn, 'click', () => {
+    if (continuousReading) {
+      stopAllSpeech();
+      return;
+    }
+    stopAllSpeech();
+    continuousReading = true;
+    if (state.page !== 1) {
+      showPage(1, true, true);
+    }
+    speakCurrentSlideForContinuous();
+  });
+}
+const printCueCardsBtn = byId('print-cue-cards-btn');
+if (printCueCardsBtn) {
+  on(printCueCardsBtn, 'click', () => {
+    const qaSection = byId('judge-qa-section');
+    const wasOpen = qaSection ? qaSection.open : true;
+    if (qaSection) qaSection.open = true;
+    window.print?.();
+    if (qaSection && !wasOpen) qaSection.open = false;
+  });
+}
+on(window, 'beforeprint', () => {
+  const qaSection = byId('judge-qa-section');
+  if (qaSection) qaSection.open = true;
+});
 const copyScriptBtn = byId('copy-script-btn');
 let copyResetTimer = null;
 if (copyScriptBtn) {
@@ -322,6 +522,7 @@ on(window, 'keydown', event => {
 });
 showPage(state.page, false);
 function dispose() {
+  stopAllSpeech();
   if (timerInterval !== null) {
     window.clearInterval(timerInterval);
     timerInterval = null;
