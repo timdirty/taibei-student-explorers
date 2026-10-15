@@ -41,6 +41,34 @@ function showPage(page, remember = true) {
     switchTeam.href = team === 'food' ? 'slides.html?team=sound&page=1' : 'slides.html?team=food&page=1';
     switchTeam.textContent = team === 'food' ? '切換至：聲景智探 ⇄' : '切換至：食光偵探 ⇄';
   }
+  if (window.speechSynthesis) {
+    try { window.speechSynthesis.cancel(); } catch {}
+  }
+  const speakBtn = byId('speak-slide-btn');
+  if (speakBtn) speakBtn.textContent = '🔊 聽講稿示範朗讀';
+  const copyBtn = byId('copy-script-btn');
+  if (copyBtn) copyBtn.textContent = '📋 複製本頁講稿';
+  const qrApp = byId('slide-qr-app');
+  const qrAppImg = byId('slide-qr-app-img');
+  const qrAppTitle = byId('slide-qr-app-title');
+  const qrFeature = byId('slide-qr-feature');
+  const qrFeatureImg = byId('slide-qr-feature-img');
+  const qrFeatureTitle = byId('slide-qr-feature-title');
+  if (team === 'food') {
+    if (qrApp) qrApp.href = FOOD_APP + '/';
+    if (qrAppImg) qrAppImg.src = 'img/qr-foodlens.svg';
+    if (qrAppTitle) qrAppTitle.textContent = '開啟食光偵探 App';
+    if (qrFeature) qrFeature.href = FOOD_APP + '/scan?view=history';
+    if (qrFeatureImg) qrFeatureImg.src = 'img/qr-food-history.svg';
+    if (qrFeatureTitle) qrFeatureTitle.textContent = '餐盤實測與大數據庫';
+  } else {
+    if (qrApp) qrApp.href = SOUND_APP + '/';
+    if (qrAppImg) qrAppImg.src = 'img/qr-soundscape.svg';
+    if (qrAppTitle) qrAppTitle.textContent = '開啟聲景智探 App';
+    if (qrFeature) qrFeature.href = SOUND_APP + '/?view=map#my-sound-map';
+    if (qrFeatureImg) qrFeatureImg.src = 'img/qr-sound-map.svg';
+    if (qrFeatureTitle) qrFeatureTitle.textContent = '擴充聲音地圖與時光機';
+  }
   const pillsContainer = byId('slide-pills');
   if (pillsContainer) {
     pillsContainer.replaceChildren(...story.slides.map((item, index) => {
@@ -50,6 +78,7 @@ function showPage(page, remember = true) {
       btn.className = isCurrent ? 'slide-pill is-active' : 'slide-pill';
       btn.textContent = `P${index + 1}`;
       btn.title = item.title;
+      btn.setAttribute('aria-label', `第 ${index + 1} 頁：${item.title}`);
       btn.setAttribute('aria-pressed', String(isCurrent));
       btn.addEventListener('click', () => showPage(index + 1));
       return btn;
@@ -95,6 +124,48 @@ slideImg.addEventListener('touchend', event => {
 byId('slide-picker').addEventListener('change', event => showPage(Number(event.target.value)));
 byId('previous-slide').addEventListener('click', () => showPage(state.page-1));
 byId('next-slide').addEventListener('click', () => showPage(state.page+1));
+const speakSlideBtn = byId('speak-slide-btn');
+if (speakSlideBtn) {
+  speakSlideBtn.addEventListener('click', () => {
+    const UtteranceCtor = window.SpeechSynthesisUtterance || (typeof SpeechSynthesisUtterance !== 'undefined' ? SpeechSynthesisUtterance : null);
+    if (window.speechSynthesis && UtteranceCtor) {
+      if (window.speechSynthesis.speaking) {
+        try { window.speechSynthesis.cancel(); } catch {}
+        speakSlideBtn.textContent = '🔊 聽講稿示範朗讀';
+        return;
+      }
+      const utterance = new UtteranceCtor(byId('speaker-text').textContent);
+      utterance.lang = 'zh-TW';
+      utterance.rate = 0.96;
+      speakSlideBtn.textContent = '⏹ 停止朗讀';
+      const resetLabel = () => { speakSlideBtn.textContent = '🔊 聽講稿示範朗讀'; };
+      utterance.onend = resetLabel;
+      utterance.onerror = resetLabel;
+      utterance.addEventListener?.('end', resetLabel);
+      utterance.addEventListener?.('error', resetLabel);
+      try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        resetLabel();
+      }
+    }
+  });
+}
+const copyScriptBtn = byId('copy-script-btn');
+let copyResetTimer = null;
+if (copyScriptBtn) {
+  copyScriptBtn.addEventListener('click', () => {
+    const text = byId('speaker-text')?.textContent || '';
+    const clipboard = window.navigator?.clipboard ?? (typeof navigator !== 'undefined' ? navigator.clipboard : null);
+    try { clipboard?.writeText?.(text)?.catch?.(() => {}); } catch {}
+    copyScriptBtn.textContent = '✓ 已複製講稿';
+    if (copyResetTimer) clearTimeout(copyResetTimer);
+    copyResetTimer = setTimeout(() => {
+      copyScriptBtn.textContent = '📋 複製本頁講稿';
+    }, 1800);
+  });
+}
 const fullscreenBtn = byId('fullscreen-slide');
 if (fullscreenBtn) {
   fullscreenBtn.addEventListener('click', () => {
