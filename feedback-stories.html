@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>午餐回饋故事｜食光偵探</title>
+  <meta name="description" content="120則設計情境，從午餐感受找一個能試的方法。自己的午餐另外記。">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="feedback-stories.css">
+  <script type="module" src="feedback-stories.js"></script>
+</head>
+<body class="feedback-stories-page">
+<a class="skip" href="#stories">跳到午餐回饋故事</a>
+<header><a class="brand" href="index.html">泰北探究小隊</a><a href="food.html#clues">回我的午餐任務</a></header>
+<main id="stories" tabindex="-1">
+  <div class="stories-intro">
+    <div><h1>午餐回饋故事</h1><p id="story-source">120則設計情境，自己的午餐另外記。</p><p>找一種感受，看看回答，再帶一個方法去試。</p></div>
+    <div class="stories-real-links"><a class="story-primary" href="https://taibei-student-explorers.ctctim14.chatgpt.site/foodlens-survey" target="_blank" rel="noopener noreferrer">記自己的午餐（免登入）</a><a href="https://taibei-student-explorers.ctctim14.chatgpt.site/survey-admin" target="_blank" rel="noopener noreferrer">看收到的午餐回饋</a></div>
+  </div>
+  <section class="story-filter-section" aria-labelledby="filters-title">
+    <h2 id="filters-title">我想找哪種感受？</h2>
+    <div class="story-filters">
+      <label for="profile-filter">午餐感受<select id="profile-filter"><option value="">全部感受</option></select></label>
+      <label for="food-filter">故事的主角食物<select id="food-filter"><option value="">全部主角食物</option></select></label>
+      <label for="leftovers-filter">可吃剩食<select id="leftovers-filter"><option value="">全部情境</option><option value="yes">有留下食物</option><option value="no">沒有留下食物</option></select></label>
+      <button id="reset-filters" type="button">看全部</button>
+    </div>
+    <p id="filter-status" role="status" aria-live="polite" aria-atomic="true">正在整理故事…</p>
+    <div id="chart-selection" class="chart-selection" hidden><span id="chart-selection-text"></span><button id="clear-chart-filters" type="button">清除圖表篩選</button></div>
+  </section>
+  <details id="story-chart-details" class="story-chart-details">
+    <summary>看這些故事的感受圖表</summary>
+    <section class="story-charts" aria-label="目前篩選故事的感受圖表">
+      <div class="story-chart"><h2 id="satiety-title">吃完有多飽？</h2><p class="chart-note" id="satiety-note"></p><div id="satiety-chart" aria-labelledby="satiety-title" aria-describedby="satiety-note"></div></div>
+      <div class="story-chart"><h2 id="adjustment-title">下一餐想先改什麼？</h2><p class="chart-note" id="adjustment-note"></p><div id="adjustment-chart" aria-labelledby="adjustment-title" aria-describedby="adjustment-note"></div></div>
+    </section>
+  </details>
+  <div class="story-workspace">
+    <section class="story-library" aria-labelledby="library-title">
+      <div class="library-heading"><h2 id="library-title">挑一則，看看餐盤</h2><button id="export-stories" type="button">下載這些故事 CSV</button></div>
+      <p class="story-art-note">插圖幫我認食物。這些餐盤是情境設計。</p>
+      <p id="export-status" role="status" aria-live="polite"></p>
+      <div id="empty-stories" class="empty-stories" hidden><h3>這個組合還沒有故事</h3><p>可以換一種感受，或按「看全部」重新挑選。</p><button id="empty-reset" type="button">看全部 120 則</button></div>
+      <ul id="case-list" class="story-cards" aria-label="午餐情境故事"></ul>
+      <nav class="story-pagination" aria-label="故事頁數"><button id="previous-stories" type="button">上一頁</button><span id="page-count" aria-live="polite"></span><button id="next-stories" type="button">下一頁</button></nav>
+    </section>
+    <section id="story-detail" class="story-detail" aria-labelledby="detail-title" hidden>
+      <div id="detail-art" class="detail-art" aria-hidden="true"></div>
+      <p id="detail-number" class="detail-number"></p>
+      <h2 id="detail-title" tabindex="-1"></h2>
+      <p id="detail-summary"></p>
+      <dl id="detail-highlights" class="story-highlights"></dl>
+      <details id="full-answers"><summary>看看這則的 12 題回答</summary><dl id="detail-answers" class="story-answers"></dl></details>
+      <fieldset id="method-choices"><legend>下一餐，我想先試…</legend><div id="method-options"></div></fieldset>
+      <p id="method-description"></p>
+      <a id="method-link" class="story-primary" href="https://foodlens-school.vercel.app/game" target="_blank" rel="noopener noreferrer">去試一個方法</a>
+      <a class="own-lunch-link" href="https://taibei-student-explorers.ctctim14.chatgpt.site/foodlens-survey" target="_blank" rel="noopener noreferrer">吃完，記自己的午餐感受</a>
+      <button id="back-to-stories" type="button">回到故事，換一則</button>
+    </section>
+  </div>
+  <noscript><p>故事需要 JavaScript 才能篩選。也可以直接填上方的匿名午餐回饋，或回午餐任務。</p></noscript>
+</main>
+<footer>食光追查隊 · 餓了可以再添，不用勉強吃光。自己的午餐，照自己的紀錄說。</footer>
+</body>
+</html>

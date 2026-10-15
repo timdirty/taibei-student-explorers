@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>兩隊操作流程｜泰北探究小隊</title>
+  <meta name="description" content="食光偵探與聲景智探的學生操作流程：跟著七步留下自己的餐盤或聲音發現，可直接開啟功能與列印。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2327345D'/%3E%3Cpath d='M7 8h8v17H7zM17 8h8v17h-8z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="student-nav.css">
+  <link rel="stylesheet" href="student-guide.css"><link rel="stylesheet" href="portal-art.css">
+  <script src="student-guide.js" defer></script>
+</head>
+<body class="guide-page">
+  <a class="skip" href="#guide">跳到操作流程</a>
+  <header>
+    <a class="brand" href="./">泰北探究小隊</a>
+    <a class="return-link" href="index.html">回作品與簡報</a>
+  </header>
+  <main id="guide" tabindex="-1">
+    <div class="intro guide-intro">
+      <h1>照著做，留下自己的發現。</h1>
+      <p>第一次從第 1 步開始；做過了，直接跳到要用的一步。</p>
+    </div>
+    <div class="guide-toolbar">
+      <nav class="team-jump" aria-label="選擇操作流程">
+        <a class="jump-food" href="#food">食光流程</a>
+        <a class="jump-sound" href="#sound">聲景流程</a>
+      </nav>
+      <button class="print-button" type="button" id="print-guide" hidden>列印兩隊流程圖</button>
+    </div>
+
+    <section class="workflow food" id="food" aria-labelledby="food-guide-title" tabindex="-1">
+      <div class="workflow-heading">
+        <div><h2 id="food-guide-title">食光偵探</h2><p>吃得夠，也少一點剩食。</p></div>
+        <a class="workflow-home" href="https://foodlens-school.vercel.app/" target="_blank" rel="noopener noreferrer">開啟作品</a>
+      </div>
+      <details class="guide-details mindmap-details">
+        <summary>我們怎麼想到這個作品？</summary>
+        <figure class="mindmap-figure">
+          <a class="mindmap-link" href="brainstorm/food-mindmap.png" target="_blank" rel="noopener noreferrer"><img src="brainstorm/food-mindmap.png" loading="lazy" decoding="async" alt="食光偵探的作品發想整理心智圖，點開可閱讀原圖"></a>
+          <figcaption>發想整理：點開圖片看完整內容。</figcaption>
+        </figure>
+      </details>
+      <ol class="flow" aria-label="食光偵探七步操作流程">
+        <li class="flow-step" id="food-1" tabindex="-1">
+          <span class="step-number" aria-label="第 1 步，共 7 步">1</span>
+          <div class="step-content"><h3>看今天的真菜單</h3><p>選用餐日期，核對菜色；實際換菜時，照現場記。</p><a class="step-link" href="https://foodlens-school.vercel.app/scan?start=menu" target="_blank" rel="noopener noreferrer">打開菜單</a></div><img class="step-art" src="img/food-egg.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="food-2" tabindex="-1">
+          <span class="step-number" aria-label="第 2 步，共 7 步">2</span>
+          <div class="step-content"><h3>問 AI，這餐怎麼吃？</h3><p>選一道菜，按「問 AI 這道菜」。我也可以加自己的問題。</p><a class="step-link" href="https://foodlens-school.vercel.app/coach" target="_blank" rel="noopener noreferrer">問問 AI 午餐教練</a></div><img class="step-art" src="img/food-hero.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="food-3" tabindex="-1">
+          <span class="step-number" aria-label="第 3 步，共 7 步">3</span>
+          <div class="step-content"><h3>玩配餐，想想份量</h3><p>用真菜單選自己的配餐。練習吃得剛好，餓了可以再加。</p><a class="step-link" href="https://foodlens-school.vercel.app/game" target="_blank" rel="noopener noreferrer">玩午餐配餐遊戲</a></div><img class="step-art" src="img/food-rice.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="food-4" tabindex="-1">
+          <span class="step-number" aria-label="第 4 步，共 7 步">4</span>
+          <div class="step-content"><h3>拍餐盤，AI 估克數</h3><p>只拍食物，選餐前或餐後，再按「AI 辨識與估克數」。核對後保存。</p><a class="step-link" href="https://foodlens-school.vercel.app/scan" target="_blank" rel="noopener noreferrer">拍自己的餐盤</a><p class="step-note">照片估克數不是秤重；看不清的食物無法靠照片確定。</p></div><img class="step-art" src="img/food-plate.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="food-5" tabindex="-1">
+          <span class="step-number" aria-label="第 5 步，共 7 步">5</span>
+          <div class="step-content"><h3>記感受，選下一餐方法</h3><p>從已存餐盤補記感受或原因，選一個想試的做法。</p><a class="step-link" href="https://foodlens-school.vercel.app/scan?view=history" target="_blank" rel="noopener noreferrer">回看我的餐盤</a></div><img class="step-art" src="img/food-greens.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="food-6" tabindex="-1">
+          <span class="step-number" aria-label="第 6 步，共 7 步">6</span>
+          <div class="step-content"><h3>帶方法到下一餐，再比較</h3><p>在原餐盤按下一餐入口，拍新的餐盤；留下兩餐對照與實際感受。</p><div class="step-actions"><a class="step-link" href="https://foodlens-school.vercel.app/scan?view=history" target="_blank" rel="noopener noreferrer">從原餐盤接著做</a><a class="step-link secondary-link" href="https://foodlens-school.vercel.app/improve" target="_blank" rel="noopener noreferrer">看改善筆記</a></div></div><img class="step-art" src="img/food-soup.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="food-7" tabindex="-1">
+          <span class="step-number" aria-label="第 7 步，共 7 步">7</span>
+          <div class="step-content"><h3>把照片與紀錄備份</h3><p>在「我的紀錄」下載備份。若分成多份，每份都存好；改善筆記另在筆記頁下載。</p><a class="step-link" href="https://foodlens-school.vercel.app/scan?view=history" target="_blank" rel="noopener noreferrer">下載午餐備份</a></div>
+        </li>
+      </ol>
+      <div class="workflow-next"><p>下一次午餐：回到第 1 步，再看看自己的改變。</p><a href="#food-1">再看第一步</a></div>
+      <div class="demo-guide"><h3>9、10月午餐小故事</h3><p>40天菜單、120則情境故事。看看不同份量會怎麼樣，再記自己的午餐。</p><a class="step-link" href="https://foodlens-school.vercel.app/#month-lunch-notebook" target="_blank" rel="noopener noreferrer">翻翻9、10月午餐手冊</a></div>
+      <details class="guide-details"><summary>我上台想怎麼說？</summary><div class="detail-content"><p>我先選菜單，問 AI 怎麼吃，再玩配餐、拍餐盤。最後打開自己的紀錄，說說下次想試什麼。</p><a href="https://foodlens-school.vercel.app/tools" target="_blank" rel="noopener noreferrer">打開午餐工具箱</a></div></details>
+    </section>
+
+    <section class="workflow sound" id="sound" aria-labelledby="sound-guide-title" tabindex="-1">
+      <div class="workflow-heading">
+        <div><h2 id="sound-guide-title">聲景智探</h2><p>跟著耳朵，發現城市。</p></div>
+        <a class="workflow-home" href="https://soundscape-ai-city-sound-detective.vercel.app/" target="_blank" rel="noopener noreferrer">開啟作品</a>
+      </div>
+      <details class="guide-details mindmap-details">
+        <summary>我們怎麼想到這個作品？</summary>
+        <figure class="mindmap-figure">
+          <a class="mindmap-link" href="brainstorm/sound-mindmap.png" target="_blank" rel="noopener noreferrer"><img src="brainstorm/sound-mindmap.png" loading="lazy" decoding="async" alt="聲景智探的作品發想整理心智圖，點開可閱讀原圖"></a>
+          <figcaption>發想整理：點開圖片看完整內容。</figcaption>
+        </figure>
+      </details>
+      <ol class="flow" aria-label="聲景智探七步操作流程">
+        <li class="flow-step" id="sound-1" tabindex="-1">
+          <span class="step-number" aria-label="第 1 步，共 7 步">1</span>
+          <div class="step-content"><h3>先聽一題，暖身</h3><p>選一段公開原音。我先猜，再叫 AI 一起聽。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/#sound-practice" target="_blank" rel="noopener noreferrer">打開聲音暖身</a></div><img class="step-art" src="img/sound-headphones.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="sound-2" tabindex="-1">
+          <span class="step-number" aria-label="第 2 步，共 7 步">2</span>
+          <div class="step-content"><h3>選一個想去聽的地方</h3><p>選學校附近的公園或車站，翻翻聲音小故事，挑一個想知道的問題。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/?view=map#my-sound-map" target="_blank" rel="noopener noreferrer">看地圖、選地點</a><p class="step-note">地點來自政府公開資料，聲音小故事是設計的情境。自己錄的聲音會另外存好。</p></div><img class="step-art" src="img/sound-map.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="sound-3" tabindex="-1">
+          <span class="step-number" aria-label="第 3 步，共 7 步">3</span>
+          <div class="step-content"><h3>站好，錄現場 15 秒</h3><p>到安全位置，先取得同意，再開始錄音；固定裝置，避開私人對話。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/#sound-mission" target="_blank" rel="noopener noreferrer">開始一段現場錄音</a></div><img class="step-art" src="img/sound-record.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="sound-4" tabindex="-1">
+          <span class="step-number" aria-label="第 4 步，共 7 步">4</span>
+          <div class="step-content"><h3>回聽，記自己的判斷</h3><p>接著留在剛才的錄音畫面：聽原音、看 AI，記自己的判斷。想之後回聽，就選擇保留原音。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/explore?view=mine&amp;section=notes" target="_blank" rel="noopener noreferrer">保存後回聽手冊</a></div><img class="step-art" src="img/sound-birds.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="sound-5" tabindex="-1">
+          <span class="step-number" aria-label="第 5 步，共 7 步">5</span>
+          <div class="step-content"><h3>找好位置，放到我的地圖</h3><p>可以同意定位，或自己在地圖點位置。確認後保存，再找找剛才的聲音。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/explore?view=mine" target="_blank" rel="noopener noreferrer">看我的聲音地圖</a><p class="step-note">自己點的位置會寫「手動選點」。沒選位置也能存手冊，只是不會多一個地圖點。</p></div><img class="step-art" src="img/sound-hero.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="sound-6" tabindex="-1">
+          <span class="step-number" aria-label="第 6 步，共 7 步">6</span>
+          <div class="step-content"><h3>同一地點回訪，找出差別</h3><p>從自己的點提出問題，另一天再錄新的一段；對照時段、位置與聲音，再寫發現。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/explore?view=mine" target="_blank" rel="noopener noreferrer">從我的地圖開始回訪</a></div><img class="step-art" src="img/sound-traffic.webp" width="88" height="88" alt="">
+        </li>
+        <li class="flow-step" id="sound-7" tabindex="-1">
+          <span class="step-number" aria-label="第 7 步，共 7 步">7</span>
+          <div class="step-content"><h3>把聲音地圖與手冊備份</h3><p>展開「備份與還原這台裝置的手冊」並下載；若分成多份，每份都存好。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/explore?view=mine" target="_blank" rel="noopener noreferrer">下載聲景備份</a></div>
+        </li>
+      </ol>
+      <div class="workflow-next"><p>下一次探索：帶著問題回到第 3 步，再聽一次。</p><a href="#sound-3">再看錄音這一步</a></div>
+      <div class="demo-guide"><h3>9月聲音小故事</h3><p>50個地點、400則情境故事。早上和放學後，我想去聽什麼？</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/?view=map#my-sound-map" target="_blank" rel="noopener noreferrer">翻翻附近的聲音手冊</a></div>
+      <details class="guide-details"><summary>我上台想怎麼說？</summary><div class="detail-content"><p>我先聽一題，選附近的地點。再打開自己的錄音，讓大家一起聽，說說我發現了什麼。想回聽，錄音時要選保留原音。</p><div class="detail-links"><a href="https://soundscape-ai-city-sound-detective.vercel.app/competition" target="_blank" rel="noopener noreferrer">看看我的發現</a><a href="https://soundscape-ai-city-sound-detective.vercel.app/routes" target="_blank" rel="noopener noreferrer">試試聲音散步</a></div></div></details>
+    </section>
+
+    <details class="guide-details common-help" id="help" tabindex="-1"><summary>網路、權限與保存：卡住了怎麼辦？</summary><div class="detail-content">
+      <p><strong>相機、麥克風與定位：</strong>iPad 會問你要不要允許，由本人決定；拍照、錄音前先問老師與在場的人。拒絕後，可以先看菜單、玩配餐或聽暖身，再於需要時開啟權限。</p>
+      <p><strong>還沒收到 AI 回答：</strong>照片、原音和上次的回答都先留著，再按一次重試。等 AI 真正回答，不把自己猜的寫成 AI 的答案。</p>
+      <p><strong>換平板：</strong>照片和錄音留在這台裝置，不會自己跑到另一台。先下載備份，再到另一台打開。裡面有自己的照片、聲音和位置，記得保管好。</p>
+      <p><strong>開啟連結：</strong>功能會在另一個分頁開啟。連續拍照、錄音時留在同一作品分頁；想回到流程，切回這個分頁即可。</p>
+    </div></details>
+    <p class="guide-return"><a href="index.html">回到兩隊作品、簡報與問卷</a></p>
+  </main>
+  <footer>2026/10/12 · 泰北探究小隊。看完小故事，也來留下自己的發現吧。</footer>
+</body>
+</html>

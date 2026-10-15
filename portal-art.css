@@ -1,0 +1,15 @@
+/* Picture-first touches for the student portal (2026-10-14). Art is decorative; text and links are unchanged. */
+.project-hero{display:block;width:168px;height:168px;margin:-4px auto 6px;object-fit:contain}
+.journey-act{grid-template-columns:128px minmax(0,1fr)}
+.act-step{display:grid;justify-items:start;align-content:start;gap:8px}
+.act-art{display:block;width:112px;height:112px;object-fit:contain}
+@media(max-width:700px){.project-hero{width:128px;height:128px}}
+@media(max-width:600px){
+  .journey-act{grid-template-columns:minmax(0,1fr)}
+  .act-step{grid-auto-flow:column;justify-content:start;align-items:center;gap:12px}
+  .act-art{width:64px;height:64px}
+}
+.flow-step:has(.step-art){grid-template-columns:40px minmax(0,1fr) 88px}
+.step-art{display:block;width:88px;height:88px;object-fit:contain;align-self:start;border-radius:12px}
+@media(max-width:700px){.flow-step:has(.step-art){grid-template-columns:36px minmax(0,1fr) 56px}.step-art{width:56px;height:56px}}
+@media print{.step-art{display:none}.flow-step:has(.step-art){grid-template-columns:28px minmax(0,1fr)}}

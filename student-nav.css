@@ -1,0 +1,30 @@
+.team-jump {
+  display: flex;
+  gap: 12px;
+  max-width: 600px;
+  margin: 18px 0 24px;
+}
+.team-jump a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+}
+.jump-food { color: #236347; background: white; }
+.jump-sound { color: #445a99; background: white; }
+.team-jump .jump-survey { color: white; background: #236347; border-color: #236347; }
+.team-jump a:hover { filter: brightness(.93); }
+.project { scroll-margin-top: 24px; }
+main:focus-visible, .project:focus-visible { outline: 3px solid #a23e0d; outline-offset: 5px; }
+@media (max-width: 370px) {
+  .team-jump { gap: 8px; }
+  .team-jump a { padding: 10px 6px; }
+}

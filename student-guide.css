@@ -1,0 +1,85 @@
+.guide-entry{margin-top:12px;display:grid;gap:8px}
+.guide-entry-link,.demo-entry-link{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 14px;text-align:center;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:6px;text-decoration:none}
+.demo-entry-link{border-color:#d5dce6;font-size:15px;font-weight:600}
+.guide-entry .hint{margin:0}
+.guide-entry-link:hover,.demo-entry-link:hover{background:#f4f6fa}
+.guide-entry-link:active,.demo-entry-link:active{background:#e5eaf2}
+.guide-page{--focus:#a23e0d;--ink:#233044;--muted:#526078;--line:#d5dce6;--surface:#fff;--quiet:#f4f6fa;--food:#236347;--sound:#445a99}
+.guide-page ::selection{color:white;background:var(--food)}
+.guide-page .sound ::selection{background:var(--sound)}
+.guide-page a:focus-visible,.guide-page button:focus-visible,.guide-page summary:focus-visible,.guide-page [tabindex="-1"]:focus-visible{outline:3px solid var(--focus);outline-offset:5px}
+.guide-page [hidden]{display:none!important}
+.return-link{display:flex;align-items:center;min-height:44px;font-size:16px}
+.guide-intro{margin-bottom:18px}
+.guide-intro h1{font-size:32px;text-wrap:balance}
+.guide-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:26px}
+.guide-toolbar .team-jump{flex:1;max-width:420px;margin:0}
+.print-button{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:650;color:var(--ink);background:var(--surface);cursor:pointer}
+.print-button:hover{background:#e5eaf2}
+.print-button:active{background:#d5dce6}
+.workflow{--accent:var(--food);scroll-margin-top:24px;margin:0 0 36px;padding:24px 28px;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:10px}
+.workflow.sound{--accent:var(--sound)}
+.workflow-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+.workflow-heading h2{font-size:28px;line-height:1.35;margin:0 0 4px}
+.workflow-heading p{margin:0;color:var(--muted);font-size:17px}
+.workflow-home{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;color:var(--accent);font-weight:700;white-space:nowrap}
+.flow{list-style:none;padding:0;margin:0;counter-reset:flow}
+.flow-step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;position:relative;padding:0 0 36px;scroll-margin-top:20px}
+.flow-step:not(:last-child)::after{content:"";position:absolute;left:15px;bottom:13px;width:10px;height:10px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg)}
+.flow-step:not(:last-child)::before{content:"";position:absolute;left:19px;top:45px;bottom:15px;width:2px;background:var(--line)}
+.flow-step:last-child{padding-bottom:12px}
+.step-number{display:flex;align-items:center;justify-content:center;align-self:start;width:40px;height:40px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;background:var(--surface)}
+.step-content{min-width:0;padding-top:2px;max-width:75ch}
+.step-content h3{font-size:20px;line-height:1.4;margin:0 0 8px;text-wrap:balance}
+.step-content p{font-size:16px;line-height:1.65;color:var(--ink);margin:0 0 10px}
+.step-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 14px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:6px;text-decoration:none;text-align:center}
+.step-link:hover{background:var(--quiet)}
+.step-link:active{background:#e5eaf2}
+.step-actions{display:flex;gap:10px;flex-wrap:wrap}
+.secondary-link{border-color:var(--line);font-weight:600}
+.step-content .step-note{font-size:14px;color:var(--muted);margin:9px 0 0}
+.workflow-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:14px 0 22px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.workflow-next p{margin:0;font-weight:600}
+.workflow-next a{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-weight:700;padding:8px 0}
+.demo-guide h3{font-size:18px;margin:0 0 8px}
+.demo-guide p{color:var(--muted);font-size:15px;margin:0 0 12px;max-width:75ch}
+.guide-details{padding-top:8px;margin-top:20px;border-top:1px solid var(--line)}
+.guide-details summary{min-height:48px;padding:13px 0;line-height:1.5}
+.mindmap-details{margin:0 0 22px}
+.mindmap-figure{margin:0;padding:4px 0 10px}
+.mindmap-link{display:block;min-height:44px}
+.mindmap-link img{display:block;width:100%;height:auto}
+.mindmap-figure figcaption{font-size:15px;color:var(--muted);margin-top:10px}
+.detail-content{max-width:75ch;padding-bottom:8px}
+.detail-content p{font-size:16px;margin:4px 0 12px;color:var(--ink)}
+.detail-content a{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;font-weight:650;color:var(--accent,var(--ink))}
+.detail-links{display:flex;flex-wrap:wrap;gap:12px 24px}
+.common-help{--accent:var(--ink);margin:0 0 18px}
+.guide-return a{display:inline-flex;align-items:center;min-height:44px}
+.guide-page a,.guide-page button{transition:background-color 150ms ease-out}
+@media(max-width:700px){.guide-intro h1{font-size:28px}.guide-toolbar{align-items:stretch;flex-direction:column;gap:12px}.guide-toolbar .team-jump{max-width:none;width:100%}.print-button{align-self:flex-start}.workflow{padding:20px 18px}.workflow-heading{gap:12px}.workflow-heading h2{font-size:26px}.workflow-heading p{font-size:16px}.workflow-home{padding:8px 0}.flow-step{grid-template-columns:36px minmax(0,1fr);gap:12px}.step-number{width:36px;height:36px;font-size:19px}.flow-step:not(:last-child)::before{left:17px;top:41px}.flow-step:not(:last-child)::after{left:13px}.step-content h3{font-size:19px}}
+@media(max-width:370px){.workflow-heading{align-items:flex-start;flex-direction:column}.workflow-home{justify-content:flex-start}.step-actions{flex-direction:column;align-items:flex-start}.workflow{padding:18px 14px}}
+@media(prefers-reduced-motion:reduce){.guide-page a,.guide-page button{transition:none}}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  :root{font-size:11pt;background:white;color:#111}
+  .guide-page header,.guide-intro,.guide-toolbar,.guide-return,.skip,.common-help,.guide-page footer{display:none}
+  .guide-page main{max-width:none;padding:0}
+  .workflow{padding:0;margin:0;border:0;border-radius:0;break-after:page;page-break-after:always}
+  .workflow:last-of-type{break-after:auto;page-break-after:auto}
+  .workflow-heading{margin-bottom:14px;border-bottom:1px solid #777;padding-bottom:10px}
+  .workflow-heading h2{font-size:23pt}
+  .workflow-heading p{font-size:12pt;color:#111}
+  .workflow-home,.step-link,.workflow-next a,.guide-details{display:none}
+  .flow-step{grid-template-columns:28px minmax(0,1fr);gap:12px;padding-bottom:24px;break-inside:avoid;page-break-inside:avoid}
+  .step-number{width:28px;height:28px;border-radius:3px;font-size:13pt;color:#111;border-color:#333}
+  .step-content{padding-top:0;max-width:none}
+  .step-content h3{font-size:13pt;margin-bottom:4px}
+  .step-content p{font-size:11pt;line-height:1.5;margin:0;color:#111}
+  .step-content .step-note{font-size:9pt;margin-top:4px;color:#333}
+  .flow-step:not(:last-child)::before{left:13px;top:32px;bottom:12px;background:#777}
+  .flow-step:not(:last-child)::after{left:9px;bottom:9px;width:9px;height:9px;border-color:#333}
+  .workflow-next{margin:6px 0 12px;padding:8px 0;font-size:10pt}
+  .demo-guide h3{font-size:11pt;margin-bottom:4px}
+  .demo-guide p{font-size:9pt;margin:0;color:#333}
+}

@@ -1,0 +1,325 @@
+{
+  "renderedFrom": "2026-10-15_v6 student PowerPoint decks",
+  "revision": "v6",
+  "note": "v6 keeps the v5r5 pages and adds a field-to-stage page and a judges' blind-round page per team. PDF and page images are exported with Keynote so the decks keep Heiti TC (LibreOffice on this Mac substituted random fonts). New App screenshots were taken on 2026-10-15 from local dev servers of the current branch; the round pages show the App's built-in demonstration case at chapter 1 only. No student records or statistics were added.",
+  "sourceRevision": "2c429b3",
+  "captureRevision": "2c429b3 (local), screenshots 2026-10-15 10:3x +0800",
+  "decks": [
+    {
+      "kind": "food",
+      "title": "食光偵探",
+      "revision": "v6",
+      "slideCount": 11,
+      "pptx": "materials/presentations/2026-10-15/output/食光偵探_11頁學生簡報_2026-10-15_v6.pptx",
+      "pptxSha256": "1ca5769de66e4ae0252047b88384765618fa265fd5e99ace1250b70bf9fa0634",
+      "pdf": "materials/presentations/2026-10-15/output/食光偵探_11頁學生簡報_2026-10-15_v6.pdf",
+      "pdfSha256": "f1e747af9c2f0cc11773b005f50f5639052e5df197aa8a21f2e112179035f831",
+      "nativeTableOwnerSlide": 10
+    },
+    {
+      "kind": "sound",
+      "title": "聲景智探",
+      "revision": "v6",
+      "slideCount": 11,
+      "pptx": "materials/presentations/2026-10-15/output/聲景智探_11頁學生簡報_2026-10-15_v6.pptx",
+      "pptxSha256": "fa1b775befe519451936f7817e93d323858a8135b52445f928096bf521374f1f",
+      "pdf": "materials/presentations/2026-10-15/output/聲景智探_11頁學生簡報_2026-10-15_v6.pdf",
+      "pdfSha256": "66c547253fb41e758119b6538c4dbaceaebc629ef5f4b137b14bdd0e7e51601a",
+      "nativeTableOwnerSlide": 10
+    }
+  ],
+  "assets": [
+    {
+      "asset": "slide-pages/food/01.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/01.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "7e1d193d44bc732ca1592660600a2232611a5497bc736cbf2af6bffc08ad5bf3",
+      "slide": 1,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "concept-illustration",
+      "contentBoundary": "AI概念插畫，非學生現場照片。"
+    },
+    {
+      "asset": "slide-pages/food/02.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/02.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "6fbdcbf8ca897b0fcc8cc7a6cfa93574037e0b3ed04f50bb34cbeed2d0d0dd14",
+      "slide": 2,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "user-provided-photo",
+      "contentBoundary": "使用者提供的餐盤原照，沒有另加日期、重量、原因或學生身分。"
+    },
+    {
+      "asset": "slide-pages/food/03.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/03.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "18295e341fe4e19d5168715c53e90fad1f5c383c31bde9aa81234619cf00ad4a",
+      "slide": 3,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "editable-mindmap"
+    },
+    {
+      "asset": "slide-pages/food/04.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/04.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "4145c0a7513d887d4723cc588615d4b46495946a8c80e218b4ecf3f98254c7d4",
+      "slide": 4,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "original-official-menu-pages",
+      "contentBoundary": "原始學校9、10月菜單頁圖。9月原標題115年8~9月保留，10/16魚排與豬柳原列放大。"
+    },
+    {
+      "asset": "slide-pages/food/05.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/05.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "e87592fb6ae4408fa4dea96b5f6509ac49cfe4da8892a986213def825c0ad6a3",
+      "slide": 5,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "actual-app-screenshot",
+      "contentBoundary": "本機新版UI重開既有保存的真實Gemini回答，沒有為截圖重新呼叫模型。菜圖是App插圖，不是實際午餐照片。"
+    },
+    {
+      "asset": "slide-pages/food/06.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/06.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "533fba7227c716dc72ccb1967f501bb6c49555406548e3b29e71679b535660fb",
+      "slide": 6,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "editable-workflow"
+    },
+    {
+      "asset": "slide-pages/food/07.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/07.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "cec430ed96bc6f69912198f00f71d61ac2fef2aa4e8dc35f63cfaa0a86fae886",
+      "slide": 7,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "actual-app-screenshot",
+      "contentBoundary": "實際份量遊戲，截圖沒有選份量、保存新計畫、模型呼叫或測量結果。"
+    },
+    {
+      "asset": "slide-pages/food/08.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/08.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "987b4fa75f2960881c49e7a1d99984f1a8ac38d205aafeeff03e370a82ca0cf5",
+      "slide": 8,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "editable-follow-up-diagram"
+    },
+    {
+      "asset": "slide-pages/food/09.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/09.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "0d9662c39e85530716b49e8f5478e28f085f25d7a8786a6511a87fca3b44e4fd",
+      "slide": 9,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "native-editable-table",
+      "contentBoundary": "照片克數是估算；全班、全校為每人相同的假設試算。故事是編寫情境，非學生午餐歷史。"
+    },
+    {
+      "asset": "slide-pages/food/10.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/10.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "61b9b5f1f518550181105c0dc0a5dfe107a6cc3fe18c268421dbb8515e22c297",
+      "slide": 10,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "visualType": "editable-app-actions"
+    },
+    {
+      "asset": "slide-pages/sound/01.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/01.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "7584c03355ed92249e5b2c228e3d27f815b361d0e8f20551f6b805bea498b151",
+      "slide": 1,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "concept-illustration",
+      "contentBoundary": "AI概念插畫，非學生現場照片或量測地圖。"
+    },
+    {
+      "asset": "slide-pages/sound/02.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/02.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "ee22d8700c5817bee5a2f99429c41b53806e11c34fb5435d4004230af98c801b",
+      "slide": 2,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "concept-illustration",
+      "contentBoundary": "AI概念插畫，非學生現場採集。"
+    },
+    {
+      "asset": "slide-pages/sound/03.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/03.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "bb8dacb4ee38c32aceb843ee398a771e953a6525f4b136709ea08d6a163a1fb2",
+      "slide": 3,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "editable-mindmap"
+    },
+    {
+      "asset": "slide-pages/sound/04.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/04.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "407e2d9e234867cb4e522edce4d5ce03200da6f61380ff1c1b513d0110c0cc20",
+      "slide": 4,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "actual-app-screenshot",
+      "contentBoundary": "2026-10-13新版實際地圖核心區，全部50個政府參考地點，非學生到訪或錄音紀錄。原底圖署名保留。"
+    },
+    {
+      "asset": "slide-pages/sound/05.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/05.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "bef2e0e07a3c993b7365d66717bae392aca50d618385681615d72289ebbd6cc5",
+      "slide": 5,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "actual-app-screenshot",
+      "contentBoundary": "公開原音播放完整後的真實本機模型結果。Secretlondon，CC BY-SA3.0。非學生現場採集，沒有另存新筆記。"
+    },
+    {
+      "asset": "slide-pages/sound/06.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/06.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "5fd1eee61d3ef0061c68a0bef1115310155ec920f963ef25557ee1cef0e95dfb",
+      "slide": 6,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "editable-workflow"
+    },
+    {
+      "asset": "slide-pages/sound/07.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/07.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "84951adc6318b4bd8d136a772b4483ff7c9d7f76f3c9e12ebb60d6ed5b101641",
+      "slide": 7,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "actual-app-screenshot",
+      "contentBoundary": "公開原音開始前的盲聽選項，沒有先揭露答案。非學生現場錄音。"
+    },
+    {
+      "asset": "slide-pages/sound/08.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/08.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "cb553ba3fdde224242dc6ec8bf37416c9712b2094f2f94e7e233baf0aff617ba",
+      "slide": 8,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "editable-follow-up-diagram"
+    },
+    {
+      "asset": "slide-pages/sound/09.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/09.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "eac23bbc61ce1e23a94c09623f328828e24103320fa90398719b54cbc1716941",
+      "slide": 9,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "native-editable-table",
+      "contentBoundary": "50地點與400則編寫情境、9段公開原音、個人錄音為三種不同來源。"
+    },
+    {
+      "asset": "slide-pages/sound/10.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/10.png",
+      "kind": "verified-v5r5-slide-render",
+      "sha256": "469cad4de7e9290e31ceecf9367e380f6da6fd37f4c15ee2b34e630e8207cfda",
+      "slide": 10,
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "sourceDeckSha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "visualType": "editable-app-actions"
+    }
+  ],
+  "diagrams": [
+    {
+      "asset": "diagrams/food-mindmap.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/diagrams/food-mindmap.png",
+      "kind": "native-pptx-diagram-preview",
+      "sha256": "18295e341fe4e19d5168715c53e90fad1f5c383c31bde9aa81234619cf00ad4a",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "editableOwnerSlide": 3
+    },
+    {
+      "asset": "diagrams/food-workflow.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/diagrams/food-workflow.png",
+      "kind": "native-pptx-diagram-preview",
+      "sha256": "533fba7227c716dc72ccb1967f501bb6c49555406548e3b29e71679b535660fb",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "editableOwnerSlide": 6
+    },
+    {
+      "asset": "diagrams/sound-mindmap.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/diagrams/sound-mindmap.png",
+      "kind": "native-pptx-diagram-preview",
+      "sha256": "bb8dacb4ee38c32aceb843ee398a771e953a6525f4b136709ea08d6a163a1fb2",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "editableOwnerSlide": 3
+    },
+    {
+      "asset": "diagrams/sound-workflow.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/diagrams/sound-workflow.png",
+      "kind": "native-pptx-diagram-preview",
+      "sha256": "5fd1eee61d3ef0061c68a0bef1115310155ec920f963ef25557ee1cef0e95dfb",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "editableOwnerSlide": 6
+    }
+  ],
+  "overviews": [
+    {
+      "asset": "overviews/food.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/food/overview.png",
+      "kind": "ten-slide-overview",
+      "sha256": "078fead69f1cc4183c72120f3b49de8c04928b7725dfbe509f55f85fd636a3a9",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx"
+    },
+    {
+      "asset": "overviews/sound.png",
+      "origin": "materials/presentations/2026-10-12-visual/output/previews/sound/overview.png",
+      "kind": "ten-slide-overview",
+      "sha256": "2d8745816c65c867dc9db0f927c5703bed990c0c1164875686882704a89106fe",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx"
+    }
+  ],
+  "downloads": [
+    {
+      "asset": "slides/食光偵探_10頁學生簡報.pptx",
+      "origin": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "kind": "verified-v5r5-download",
+      "sha256": "77ae76620e9689ba2cd778d5f2ac593467b02ec8db21cf77f25a6a2b1ee6f48a",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx"
+    },
+    {
+      "asset": "slides/食光偵探_10頁學生簡報.pdf",
+      "origin": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pdf",
+      "kind": "verified-v5r5-download",
+      "sha256": "55e174fbd155ceb49400281a61a1599f59d640ab7613f2a54248b9d79420bcf0",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/食光偵探_10頁學生簡報_2026-10-12_v5r5.pptx"
+    },
+    {
+      "asset": "slides/聲景智探_10頁學生簡報.pptx",
+      "origin": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx",
+      "kind": "verified-v5r5-download",
+      "sha256": "aab4ad20ca752ae04afae8e1472318fc0fada87a8f0e2d6b1a0e4cff209072af",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx"
+    },
+    {
+      "asset": "slides/聲景智探_10頁學生簡報.pdf",
+      "origin": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pdf",
+      "kind": "verified-v5r5-download",
+      "sha256": "80c205217b53a02901e98dd3ff4557159e07ba39c61c53c9978f2744081227aa",
+      "sourceDeck": "materials/presentations/2026-10-12-visual/output/聲景智探_10頁學生簡報_2026-10-12_v5r5.pptx"
+    }
+  ]
+}
