@@ -54,9 +54,9 @@
 .story-card[aria-pressed="true"]{outline:2px solid var(--story-green);outline-offset:1px}
 .story-card .card-art{display:flex;justify-content:center;align-items:center;gap:2px;background:var(--story-pale);padding:8px 4px;min-height:116px}
 .story-card[aria-pressed="true"] .card-art{background:var(--story-yellow)}
-.food-art{display:block;aspect-ratio:1;width:100px;max-width:48%;background-image:url("/app-art/foodlens-food-atlas-v1.webp");background-repeat:no-repeat;background-size:300% 200%}
+.food-art{display:block;aspect-ratio:1;width:100px;max-width:48%;background-image:url("img/foodlens-food-atlas-v1.webp");background-repeat:no-repeat;background-size:300% 200%}
 .art-rice{background-position:0 0}.art-protein{background-position:50% 0}.art-egg{background-position:100% 0}.art-greens{background-position:0 100%}
-.art-noodles,.art-beans,.art-fish{background-image:url("/app-art/foodlens-food-atlas-v2.webp")}
+.art-noodles,.art-beans,.art-fish{background-image:url("img/foodlens-food-atlas-v2.webp")}
 .art-fish{background-position:0 0}.art-beans{background-position:50% 0}.art-noodles{background-position:100% 0}
 .card-copy{display:flex;flex-direction:column;gap:4px;padding:12px}
 .card-copy strong{font-size:1rem;line-height:1.45}
