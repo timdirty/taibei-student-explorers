@@ -13,3 +13,40 @@
 .step-art{display:block;width:88px;height:88px;object-fit:contain;align-self:start;border-radius:12px}
 @media(max-width:700px){.flow-step:has(.step-art){grid-template-columns:36px minmax(0,1fr) 56px}.step-art{width:56px;height:56px}}
 @media print{.step-art{display:none}.flow-step:has(.step-art){grid-template-columns:28px minmax(0,1fr)}}
+
+/* Scannable, clickable QR code cards for classroom tablets (2026-10-15) */
+.qr-hub{margin:18px 0 24px;padding:18px 20px;background:#fff;border:1px solid #d5dce6;border-radius:12px;box-shadow:0 2px 8px rgba(35,48,68,.05)}
+.qr-hub-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.qr-hub-head h2{font-size:18px;line-height:1.35;margin:0;color:#233044}
+.qr-hub-head span,.qr-box-title{font-size:13px;font-weight:700;color:#526078;margin:0}
+.project-qr-box{margin:18px 0;padding:14px;background:#f8fafd;border:1px dashed #c5d1e0;border-radius:10px}
+.project-qr-box .qr-box-title{margin:0 0 10px;color:#233044}
+.qr-grid{display:grid;gap:12px}
+.qr-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.qr-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.qr-card{display:flex;align-items:center;gap:12px;padding:10px 12px;background:#fff;border:1px solid #d5dce6;border-radius:10px;text-decoration:none;color:#233044;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.qr-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(35,48,68,.09);border-color:var(--accent,#236347)}
+.qr-card.qr-food{--accent:#236347}
+.qr-card.qr-sound{--accent:#445a99}
+.project-qr-box .qr-card{flex-direction:column;text-align:center;padding:12px 10px;gap:8px}
+.qr-code-img{display:block;width:96px;height:96px;padding:6px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;flex-shrink:0;object-fit:contain}
+.project-qr-box .qr-code-img{width:108px;height:108px}
+.qr-card-meta{display:flex;flex-direction:column;gap:4px;min-width:0}
+.qr-card-meta strong{font-size:15px;line-height:1.35;color:#182232}
+.qr-card-meta span:not(.qr-card-badge){font-size:12.5px;line-height:1.45;color:#526078;overflow-wrap:anywhere}
+.qr-card-badge{display:inline-flex;align-items:center;align-self:flex-start;margin-top:2px;padding:2px 8px;border-radius:999px;background:#eef3f9;color:var(--accent,#233044);font-size:12px;font-weight:700}
+.project-qr-box .qr-card-badge{align-self:center}
+.survey-entry:has(.qr-card-survey){display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.survey-entry-body>.primary{margin:12px 0 0}
+.qr-card-survey{flex-direction:column;text-align:center;padding:10px 12px;gap:6px;background:#fff;border-color:#b7d9c8}
+.qr-card-survey .qr-code-img{width:100px;height:100px;border-color:#d5ebe0}
+.qr-card-survey .qr-card-badge{align-self:center;background:#e6f4ec;color:#236347}
+@media(max-width:860px){.qr-grid-3{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .qr-grid-2{grid-template-columns:1fr}
+  .project-qr-box .qr-card{flex-direction:row;text-align:left}
+  .project-qr-box .qr-card-badge{align-self:flex-start}
+  .survey-entry:has(.qr-card-survey){grid-template-columns:1fr}
+  .qr-card-survey{flex-direction:row;text-align:left}
+}
+
