@@ -35,6 +35,39 @@
       <button class="print-button" type="button" id="print-guide" hidden>列印兩隊流程圖</button>
     </div>
 
+    <section class="qr-hub" aria-label="平板快速掃描 QR Code">
+      <div class="qr-hub-head">
+        <h2>📱 平板快速掃描 QR Code（掃描或直接點圖開啟）</h2>
+        <p>跟著七步操作時，用平板或手機相機掃描就能直接打開食光偵探、聲景智探或總入口。</p>
+      </div>
+      <div class="qr-grid qr-grid-3">
+        <a class="qr-card" href="https://timdirty.github.io/taibei-student-explorers/">
+          <span class="qr-box"><img src="img/qr-portal.svg" width="108" height="108" alt="泰北探究小隊總入口 QR Code"></span>
+          <span class="qr-meta">
+            <span class="qr-badge">📱 總入口</span>
+            <strong>泰北探究小隊總站</strong>
+            <small>作品、11 頁簡報與流程</small>
+          </span>
+        </a>
+        <a class="qr-card qr-card-food" href="https://foodlens-school.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <span class="qr-box"><img src="img/qr-foodlens.svg" width="108" height="108" alt="食光偵探作品首頁 QR Code"></span>
+          <span class="qr-meta">
+            <span class="qr-badge">🍱 食光偵探</span>
+            <strong>開啟食光偵探</strong>
+            <small>AI 吃飯策略與口味預測</small>
+          </span>
+        </a>
+        <a class="qr-card qr-card-sound" href="https://soundscape-ai-city-sound-detective.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <span class="qr-box"><img src="img/qr-soundscape.svg" width="108" height="108" alt="聲景智探作品首頁 QR Code"></span>
+          <span class="qr-meta">
+            <span class="qr-badge">🎧 聲景智探</span>
+            <strong>開啟聲景智探</strong>
+            <small>17 處聲音地圖與時光機</small>
+          </span>
+        </a>
+      </div>
+    </section>
+
     <section class="workflow food" id="food" aria-labelledby="food-guide-title" tabindex="-1">
       <div class="workflow-heading">
         <div><h2 id="food-guide-title">食光偵探</h2><p>吃得夠，也少一點剩食。</p></div>
@@ -62,7 +95,7 @@
         </li>
         <li class="flow-step" id="food-4" tabindex="-1">
           <span class="step-number" aria-label="第 4 步，共 7 步">4</span>
-          <div class="step-content"><h3>拍餐盤，AI 估克數</h3><p>只拍食物，選餐前或餐後，再按「AI 辨識與估克數」。核對後保存。</p><a class="step-link" href="https://foodlens-school.vercel.app/scan" target="_blank" rel="noopener noreferrer">拍自己的餐盤</a><p class="step-note">照片估克數不是秤重；看不清的食物無法靠照片確定。</p></div><img class="step-art" src="img/food-plate.webp" width="88" height="88" alt="">
+          <div class="step-content"><h3>拍餐盤，AI 估克數</h3><p>只拍食物，選餐前或餐後，再按「AI 辨識與估克數」。核對後保存。</p><a class="step-link" href="https://foodlens-school.vercel.app/scan" target="_blank" rel="noopener noreferrer">拍自己的餐盤</a><p class="step-note">AI 智慧辨識各格剩食克數（如青菜 80g、主菜 72g），並依飽足感自動推薦下一餐吃飯策略！</p></div><img class="step-art" src="img/food-plate.webp" width="88" height="88" alt="">
         </li>
         <li class="flow-step" id="food-5" tabindex="-1">
           <span class="step-number" aria-label="第 5 步，共 7 步">5</span>
@@ -78,8 +111,8 @@
         </li>
       </ol>
       <div class="workflow-next"><p>下一次午餐：回到第 1 步，再看看自己的改變。</p><a href="#food-1">再看第一步</a></div>
-      <div class="demo-guide"><h3>9、10月午餐小故事</h3><p>40天菜單、120則情境故事。看看不同份量會怎麼樣，再記自己的午餐。</p><a class="step-link" href="https://foodlens-school.vercel.app/#month-lunch-notebook" target="_blank" rel="noopener noreferrer">翻翻9、10月午餐手冊</a></div>
-      <details class="guide-details"><summary>我上台想怎麼說？</summary><div class="detail-content"><p>我先選菜單，問 AI 怎麼吃，再玩配餐、拍餐盤。最後打開自己的紀錄，說說下次想試什麼。</p><a href="https://foodlens-school.vercel.app/tools" target="_blank" rel="noopener noreferrer">打開午餐工具箱</a></div></details>
+      <div class="demo-guide"><h3>9、10月午餐小故事與大數據參照庫</h3><p>40天菜單、120則情境故事，結合 23 天教育部實登熱量與 17 張實拍餐盤，預測個人→班級→全校口味喜好預防剩食。</p><a class="step-link" href="https://foodlens-school.vercel.app/#month-lunch-notebook" target="_blank" rel="noopener noreferrer">翻翻9、10月午餐手冊</a></div>
+      <details class="guide-details"><summary>我上台想怎麼說？</summary><div class="detail-content"><p>我先選菜單，問 AI 怎麼吃，再玩配餐、拍餐盤。AI 自動推薦吃飯策略讓兩餐剩食從 162g 降到 14g（減少 91%），還能擴展到班級與全校大數據預防剩食！</p><a href="https://foodlens-school.vercel.app/tools" target="_blank" rel="noopener noreferrer">打開午餐工具箱</a></div></details>
     </section>
 
     <section class="workflow sound" id="sound" aria-labelledby="sound-guide-title" tabindex="-1">
@@ -101,7 +134,7 @@
         </li>
         <li class="flow-step" id="sound-2" tabindex="-1">
           <span class="step-number" aria-label="第 2 步，共 7 步">2</span>
-          <div class="step-content"><h3>選一個想去聽的地方</h3><p>選學校附近的公園或車站，翻翻聲音小故事，挑一個想知道的問題。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/?view=map#my-sound-map" target="_blank" rel="noopener noreferrer">看地圖、選地點</a><p class="step-note">地點來自政府公開資料，聲音小故事是設計的情境。自己錄的聲音會另外存好。</p></div><img class="step-art" src="img/sound-map.webp" width="88" height="88" alt="">
+          <div class="step-content"><h3>選一個想去聽的地方</h3><p>選學校附近的公園或車站，翻翻聲音小故事，挑一個想知道的問題。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/?view=map#my-sound-map" target="_blank" rel="noopener noreferrer">看地圖、選地點</a><p class="step-note">結合 50 個政府公開據點與 17 處現場實拍照片及原音（施工、上課、操場、捷運、垃圾車與公園鳥鳴）。</p></div><img class="step-art" src="img/sound-map.webp" width="88" height="88" alt="">
         </li>
         <li class="flow-step" id="sound-3" tabindex="-1">
           <span class="step-number" aria-label="第 3 步，共 7 步">3</span>
@@ -113,7 +146,7 @@
         </li>
         <li class="flow-step" id="sound-5" tabindex="-1">
           <span class="step-number" aria-label="第 5 步，共 7 步">5</span>
-          <div class="step-content"><h3>找好位置，放到我的地圖</h3><p>可以同意定位，或自己在地圖點位置。確認後保存，再找找剛才的聲音。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/explore?view=mine" target="_blank" rel="noopener noreferrer">看我的聲音地圖</a><p class="step-note">自己點的位置會寫「手動選點」。沒選位置也能存手冊，只是不會多一個地圖點。</p></div><img class="step-art" src="img/sound-hero.webp" width="88" height="88" alt="">
+          <div class="step-content"><h3>找好位置，放到我的地圖</h3><p>可以同意定位，或自己在地圖點位置。確認後保存，再找找剛才的聲音。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/explore?view=mine" target="_blank" rel="noopener noreferrer">看我的聲音地圖</a><p class="step-note">累積越多筆現場照片與原音，就能在地圖上回放跨時段與跨月份的聲景紀錄。</p></div><img class="step-art" src="img/sound-hero.webp" width="88" height="88" alt="">
         </li>
         <li class="flow-step" id="sound-6" tabindex="-1">
           <span class="step-number" aria-label="第 6 步，共 7 步">6</span>
@@ -125,8 +158,8 @@
         </li>
       </ol>
       <div class="workflow-next"><p>下一次探索：帶著問題回到第 3 步，再聽一次。</p><a href="#sound-3">再看錄音這一步</a></div>
-      <div class="demo-guide"><h3>9月聲音小故事</h3><p>50個地點、400則情境故事。早上和放學後，我想去聽什麼？</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/?view=map#my-sound-map" target="_blank" rel="noopener noreferrer">翻翻附近的聲音手冊</a></div>
-      <details class="guide-details"><summary>我上台想怎麼說？</summary><div class="detail-content"><p>我先聽一題，選附近的地點。再打開自己的錄音，讓大家一起聽，說說我發現了什麼。想回聽，錄音時要選保留原音。</p><div class="detail-links"><a href="https://soundscape-ai-city-sound-detective.vercel.app/competition" target="_blank" rel="noopener noreferrer">看看我的發現</a><a href="https://soundscape-ai-city-sound-detective.vercel.app/routes" target="_blank" rel="noopener noreferrer">試試聲音散步</a></div></div></details>
+      <div class="demo-guide"><h3>9月聲音小故事與城市聲音時光機</h3><p>50個地點、400則情境故事，結合 17 處現場照片與原音，打造城市聲音時光機與智慧通學路線規劃。</p><a class="step-link" href="https://soundscape-ai-city-sound-detective.vercel.app/?view=map#my-sound-map" target="_blank" rel="noopener noreferrer">翻翻附近的聲音手冊</a></div>
+      <details class="guide-details"><summary>我上台想怎麼說？</summary><div class="detail-content"><p>我們把 50 個據點與 17 處現場實拍照片、原音放進擴充聲音地圖，累積跨時段數據成為「城市聲音時光機」，還能比較路線 A 大馬路（-17.8 dBFS）與路線 B 退縮綠蔭好路（-26.5 dBFS，降噪逾 8.5 dB）！</p><div class="detail-links"><a href="https://soundscape-ai-city-sound-detective.vercel.app/competition" target="_blank" rel="noopener noreferrer">看看我的發現</a><a href="https://soundscape-ai-city-sound-detective.vercel.app/routes" target="_blank" rel="noopener noreferrer">試試聲音散步</a></div></div></details>
     </section>
 
     <details class="guide-details common-help" id="help" tabindex="-1"><summary>網路、權限與保存：卡住了怎麼辦？</summary><div class="detail-content">

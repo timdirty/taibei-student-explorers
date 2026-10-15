@@ -11,6 +11,7 @@
   <meta name="theme-color" content="#1f5f3b">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="feedback-stories.css">
+  <link rel="stylesheet" href="portal-art.css">
   <script type="module" src="feedback-stories.js"></script>
 </head>
 <body class="feedback-stories-page">
@@ -18,9 +19,41 @@
 <header><a class="brand" href="index.html">泰北探究小隊</a><a href="food.html#clues">回我的午餐任務</a></header>
 <main id="stories" tabindex="-1">
   <div class="stories-intro">
-    <div><h1>午餐回饋故事</h1><p id="story-source">120則設計情境，自己的午餐另外記。</p><p>找一種感受，看看回答，再帶一個方法去試。</p></div>
+    <div><h1>午餐回饋故事與配餐策略庫</h1><p id="story-source">整合 40 天公告菜單與 120 則配餐情境，對照 AI 推薦的吃飯策略（白飯先盛剛好、趁熱先吃青菜配主菜）。</p><p>找一種午餐感受，看看下一次可以怎麼調整份量與進食順序！</p></div>
     <div class="stories-real-links"><a class="story-primary" href="https://taibei-student-explorers.ctctim14.chatgpt.site/foodlens-survey" target="_blank" rel="noopener noreferrer">記自己的午餐（免登入）</a><a href="https://taibei-student-explorers.ctctim14.chatgpt.site/survey-admin" target="_blank" rel="noopener noreferrer">看收到的午餐回饋</a></div>
   </div>
+  <section class="qr-hub" aria-label="平板快速掃描 QR Code">
+    <div class="qr-hub-head">
+      <h2>📱 平板快速掃描 QR Code（掃描或直接點圖開啟）</h2>
+      <p>同學可用平板掃描直接填寫匿名午餐回饋問卷、開啟食光偵探，或回看 9、10 月午餐大數據。</p>
+    </div>
+    <div class="qr-grid qr-grid-3">
+      <a class="qr-card qr-card-food" href="https://taibei-student-explorers.ctctim14.chatgpt.site/foodlens-survey" target="_blank" rel="noopener noreferrer">
+        <span class="qr-box"><img src="img/qr-survey.svg" width="108" height="108" alt="匿名午餐回饋問卷 QR Code"></span>
+        <span class="qr-meta">
+          <span class="qr-badge">📝 匿名問卷</span>
+          <strong>填寫我的午餐回饋</strong>
+          <small>免登入 · 累積全校口味大數據</small>
+        </span>
+      </a>
+      <a class="qr-card qr-card-food" href="https://foodlens-school.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <span class="qr-box"><img src="img/qr-foodlens.svg" width="108" height="108" alt="食光偵探作品首頁 QR Code"></span>
+        <span class="qr-meta">
+          <span class="qr-badge">🍱 食光偵探</span>
+          <strong>開啟食光偵探</strong>
+          <small>AI 判斷剩食與推薦吃飯策略</small>
+        </span>
+      </a>
+      <a class="qr-card qr-card-food" href="https://foodlens-school.vercel.app/scan?view=history" target="_blank" rel="noopener noreferrer">
+        <span class="qr-box"><img src="img/qr-food-history.svg" width="108" height="108" alt="午餐練習冊與我的餐盤 QR Code"></span>
+        <span class="qr-meta">
+          <span class="qr-badge">📊 午餐大數據</span>
+          <strong>23 天實登與餐盤紀錄</strong>
+          <small>個人 → 班級 → 全校口味預測</small>
+        </span>
+      </a>
+    </div>
+  </section>
   <section class="story-filter-section" aria-labelledby="filters-title">
     <h2 id="filters-title">我想找哪種感受？</h2>
     <div class="story-filters">
@@ -42,7 +75,7 @@
   <div class="story-workspace">
     <section class="story-library" aria-labelledby="library-title">
       <div class="library-heading"><h2 id="library-title">挑一則，看看餐盤</h2><button id="export-stories" type="button">下載這些故事 CSV</button></div>
-      <p class="story-art-note">插圖幫我認食物。這些餐盤是情境設計。</p>
+      <p class="story-art-note">點選任一則情境，對照飽足感與下一餐調整策略（先盛剛好、趁熱先吃青菜配主菜）。</p>
       <p id="export-status" role="status" aria-live="polite"></p>
       <div id="empty-stories" class="empty-stories" hidden><h3>這個組合還沒有故事</h3><p>可以換一種感受，或按「看全部」重新挑選。</p><button id="empty-reset" type="button">看全部 120 則</button></div>
       <ul id="case-list" class="story-cards" aria-label="午餐情境故事"></ul>
