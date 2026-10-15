@@ -1,4 +1,4 @@
-import { PROFILES, FOOD_GROUPS, QUESTIONS, SATIETY, ADJUSTMENTS, EMPTY_FILTERS, filterScenarios, chartCounts, answerText, scenariosCSV } from './feedback-stories-data.js';
+import { PROFILES, FOOD_GROUPS, QUESTIONS, SATIETY, ADJUSTMENTS, EMPTY_FILTERS, SOURCE_LABEL, filterScenarios, chartCounts, answerText, scenariosCSV } from './feedback-stories-data.js';
 
 const PAGE_SIZE = 12;
 const node = (doc, tag, className, text) => {
@@ -11,6 +11,11 @@ const node = (doc, tag, className, text) => {
 export function installFeedbackExplorer(doc, win) {
   if (!doc.getElementById('case-list')) return;
   const byId = id => doc.getElementById(id);
+  const storySource = byId('story-source');
+  if (storySource) {
+    storySource.dataset.sourceLabel = SOURCE_LABEL;
+    if (!storySource.textContent.trim()) storySource.textContent = SOURCE_LABEL;
+  }
   const filters = { ...EMPTY_FILTERS };
   const params = new URLSearchParams(win.location.search);
   for (const [key, allowed] of Object.entries({ profile: PROFILES.map(p => p.id), food: FOOD_GROUPS.map(g => g.id), leftovers: ['yes', 'no'], satiety: SATIETY, adjustment: ADJUSTMENTS })) {

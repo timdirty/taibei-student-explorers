@@ -16,12 +16,27 @@
 <header><a class="brand" href="index.html">泰北探究小隊</a><a id="journey-return" href="food.html">回我的午餐任務</a></header>
 <main id="slide-main" tabindex="-1">
   <div class="player-toolbar"><h1 id="deck-name">食光偵探</h1><div class="player-toolbar-actions"><label for="slide-picker">我要看哪一頁？<select id="slide-picker"></select></label><a id="switch-team" class="team-switch-btn" href="slides.html?team=sound&page=1">切換至：聲景智探 ⇄</a><button id="fullscreen-slide" class="fullscreen-btn" type="button">⛶ 全螢幕投影</button></div></div>
-  <nav class="slide-controls" aria-label="簡報換頁"><button id="previous-slide" type="button" disabled>上一頁</button><span id="short-count">1 / 11</span><button id="next-slide" type="button">下一頁</button></nav>
+  <nav class="slide-controls" aria-label="簡報換頁"><button id="previous-slide" type="button" disabled>上一頁</button><span id="short-count" aria-live="polite">1 / 11</span><button id="next-slide" type="button">下一頁</button></nav>
   <div id="slide-pills" class="slide-pills" role="group" aria-label="簡報頁碼快速跳轉"></div>
+  <div id="rehearsal-timer-bar" class="rehearsal-timer-bar" role="region" aria-label="上台報告排練計時器">
+    <div class="timer-status">
+      <span class="timer-label">⏱️ 排練計時：</span>
+      <strong id="timer-display" aria-live="off">00:00 / 03:00</strong>
+      <span id="slide-pace-hint" class="slide-pace-hint">本頁建議約 15 秒</span>
+    </div>
+    <div class="timer-actions">
+      <button id="timer-toggle-btn" class="timer-btn" type="button">▶ 開始計時</button>
+      <button id="timer-reset-btn" class="timer-btn timer-btn-secondary" type="button">↺ 重設</button>
+    </div>
+  </div>
   <div class="player-layout">
     <figure class="slide-figure"><img id="slide-image" width="1280" height="720" src="slide-pages/food/01.png" alt="食光偵探第1頁，讓午餐剛剛好"><figcaption id="page-status" aria-live="polite" aria-atomic="true">第 1 頁，共 11 頁</figcaption><p id="image-error" role="alert" hidden>這頁圖片沒打開，可以先看 PDF，或再換一頁。<a id="error-pdf-link" href="slides/食光偵探_11頁學生簡報.pdf" target="_blank" rel="noopener">點此直接開啟當頁 PDF</a></p></figure>
     <section class="try-now" aria-labelledby="page-title"><h2 id="page-title">讓午餐剛剛好</h2><a class="journey-primary" id="try-action" href="food.html" target="_blank" rel="noopener noreferrer">開始我的午餐任務</a><div class="act-links" id="page-extra-actions" hidden></div><p class="return-hint">作品在另一個分頁打開，做完再回來繼續說。</p><details class="speaker" open><summary>🎤 報告講稿（上台可以這樣說）</summary><div class="speaker-tools"><button id="speak-slide-btn" class="speaker-tool-btn" type="button">🔊 聽講稿示範朗讀</button><button id="copy-script-btn" class="speaker-tool-btn" type="button">📋 複製本頁講稿</button></div><p id="speaker-text"></p></details><a id="records-link" href="https://foodlens-school.vercel.app/presentation?view=mine" target="_blank" rel="noopener noreferrer">用我的紀錄說給大家聽</a><div id="slide-qr-box" class="slide-qr-box" aria-label="本隊作品快速掃描 QR Code"><a id="slide-qr-app" class="slide-qr-link" href="https://foodlens-school.vercel.app/" target="_blank" rel="noopener noreferrer"><img id="slide-qr-app-img" src="img/qr-foodlens.svg" width="76" height="76" alt="作品主系統 QR Code"><div><strong id="slide-qr-app-title">開啟食光偵探 App</strong><span>📱 掃描或點擊體驗</span></div></a><a id="slide-qr-feature" class="slide-qr-link" href="https://foodlens-school.vercel.app/scan?view=history" target="_blank" rel="noopener noreferrer"><img id="slide-qr-feature-img" src="img/qr-food-history.svg" width="76" height="76" alt="重點成果頁 QR Code"><div><strong id="slide-qr-feature-title">餐盤實測與大數據庫</strong><span>📱 掃描或點擊查看</span></div></a></div></section>
   </div>
+  <details id="slide-overview" class="slide-overview" open>
+    <summary>🖼️ 11 頁簡報全覽縮圖牆（點擊任一頁直接切換）</summary>
+    <div id="slide-thumb-grid" class="slide-thumb-grid" role="group" aria-label="11 頁簡報縮圖全覽"></div>
+  </details>
   <div class="deck-files"><a id="pdf-link" href="slides/食光偵探_11頁學生簡報.pdf" target="_blank" rel="noopener">看完整 PDF</a><a id="ppt-link" href="slides/食光偵探_11頁學生簡報.pptx" download>下載可編輯 PPT</a><a id="guide-link" href="student-guide.html#food">看完整操作圖</a></div>
   <noscript><p>簡報換頁需要開啟 JavaScript。也可以直接看完整 PDF，或回兩隊作品入口。</p></noscript>
 </main>

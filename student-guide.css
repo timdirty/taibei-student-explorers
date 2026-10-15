@@ -23,12 +23,24 @@
 .workflow-heading h2{font-size:28px;line-height:1.35;margin:0 0 4px}
 .workflow-heading p{margin:0;color:var(--muted);font-size:17px}
 .workflow-home{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;color:var(--accent);font-weight:700;white-space:nowrap}
+.workflow-slides-bar{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;margin:0 0 18px;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--quiet)}
+.slides-bar-label{font-weight:700;font-size:15px;color:var(--ink)}
+.slides-bar-links{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap}
+.slides-bar-links a{display:inline-flex;align-items:center;min-height:44px;padding:6px 12px;border-radius:6px;font-size:15px;font-weight:700;color:var(--accent);text-decoration:none}
+.slides-bar-links a:hover{background:#e5eaf2}
+.slides-bar-links a.slides-bar-primary{background:var(--accent);color:#fff}
+.slides-bar-links a.slides-bar-primary:hover{filter:brightness(.94);background:var(--accent)}
+.workflow-progress{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 20px;padding:10px 14px;border:1px solid var(--accent);border-radius:8px;background:var(--quiet);color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.workflow-reset-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:6px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);font:inherit;font-size:14px;font-weight:650;cursor:pointer}
+.workflow-reset-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.workflow-reset-btn:disabled{opacity:.5;cursor:not-allowed}
 .flow{list-style:none;padding:0;margin:0;counter-reset:flow}
 .flow-step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;position:relative;padding:0 0 36px;scroll-margin-top:20px}
 .flow-step:not(:last-child)::after{content:"";position:absolute;left:15px;bottom:13px;width:10px;height:10px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg)}
 .flow-step:not(:last-child)::before{content:"";position:absolute;left:19px;top:45px;bottom:15px;width:2px;background:var(--line)}
 .flow-step:last-child{padding-bottom:12px}
 .step-number{display:flex;align-items:center;justify-content:center;align-self:start;width:40px;height:40px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;background:var(--surface)}
+.flow-step.is-completed .step-number{background:var(--accent);color:#fff}
 .step-content{min-width:0;padding-top:2px;max-width:75ch}
 .step-content h3{font-size:20px;line-height:1.4;margin:0 0 8px;text-wrap:balance}
 .step-content p{font-size:16px;line-height:1.65;color:var(--ink);margin:0 0 10px}
@@ -38,6 +50,10 @@
 .step-actions{display:flex;gap:10px;flex-wrap:wrap}
 .secondary-link{border-color:var(--line);font-weight:600}
 .step-content .step-note{font-size:14px;color:var(--muted);margin:9px 0 0}
+.step-check-label{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:8px;margin-right:12px;padding:4px 10px;border:1px dashed var(--line);border-radius:6px;font-size:15px;font-weight:650;color:var(--muted);cursor:pointer;user-select:none}
+.step-check-label:hover{border-color:var(--accent);color:var(--accent);background:var(--quiet)}
+.step-checkbox{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;margin:0}
+.flow-step.is-completed .step-check-label{border-style:solid;border-color:var(--accent);background:var(--quiet);color:var(--accent)}
 .workflow-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:14px 0 22px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .workflow-next p{margin:0;font-weight:600}
 .workflow-next a{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-weight:700;padding:8px 0}
@@ -70,7 +86,7 @@
   .workflow-heading{margin-bottom:14px;border-bottom:1px solid #777;padding-bottom:10px}
   .workflow-heading h2{font-size:23pt}
   .workflow-heading p{font-size:12pt;color:#111}
-  .workflow-home,.step-link,.workflow-next a,.guide-details{display:none}
+  .workflow-home,.workflow-slides-bar,.workflow-reset-btn,.step-link,.workflow-next a,.guide-details{display:none}
   .flow-step{grid-template-columns:28px minmax(0,1fr);gap:12px;padding-bottom:24px;break-inside:avoid;page-break-inside:avoid}
   .step-number{width:28px;height:28px;border-radius:3px;font-size:13pt;color:#111;border-color:#333}
   .step-content{padding-top:0;max-width:none}
