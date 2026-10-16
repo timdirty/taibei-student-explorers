@@ -7,10 +7,11 @@ let state = resolveStory(window.location.search);
 const pad = n => String(n).padStart(2, '0');
 
 function getSlidePaceHint(page, slide) {
-  const sec = slide?.seconds || (page >= 7 && page <= 10 ? 20 : 15);
-  if (page >= 7 && page <= 10) return `核心亮點頁 · 建議約 ${sec} 秒`;
-  if (page === 11) return `總結呼籲 · 建議約 ${sec} 秒`;
-  return `本頁建議約 ${sec} 秒`;
+  const sec = slide?.seconds || (page >= 7 && page <= 10 ? 50 : 30);
+  if (page >= 7 && page <= 10) return `核心成果＋實機展示 · 建議約 ${sec} 秒`;
+  if (page >= 4 && page <= 6) return `研究方法＋實機展示 · 建議約 ${sec} 秒`;
+  if (page === 11) return `總結呼籲＋邀請掃碼 · 建議約 ${sec} 秒`;
+  return `開場與問題動機 · 建議約 ${sec} 秒`;
 }
 
 function getSlideHandoffHint(page) {
@@ -34,11 +35,11 @@ let lastRandomQaIndex = -1;
 let currentQuizItem = null;
 
 const ROLE_CONFIG = {
-  all: {pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], targetSeconds: 180},
-  A: {pages: [1, 2, 3], targetSeconds: 45},
-  B: {pages: [4, 5, 6], targetSeconds: 45},
-  C: {pages: [7, 8, 9, 10], targetSeconds: 80},
-  ALL11: {pages: [11], targetSeconds: 15},
+  all: {pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], targetSeconds: 480},
+  A: {pages: [1, 2, 3], targetSeconds: 90},
+  B: {pages: [4, 5, 6], targetSeconds: 135},
+  C: {pages: [7, 8, 9, 10], targetSeconds: 210},
+  ALL11: {pages: [11], targetSeconds: 45},
 };
 
 function getRoleConfig() {
@@ -192,7 +193,7 @@ function renderPrintableCueSheet(story) {
   if (!sheet) return;
   const heading = document.createElement('h2');
   heading.className = 'printable-cue-heading';
-  heading.textContent = `🖨️ ${story.name}（${story.team}）｜11 頁上台報告手卡與分工總表`;
+  heading.textContent = `🖨️ ${story.name}（${story.team}）｜8 分鐘報告＋實機展示 11 頁上台手卡總表`;
   const grid = document.createElement('div');
   grid.className = 'printable-cue-grid';
   for (let i = 0; i < story.slides.length; i += 1) {
@@ -209,7 +210,7 @@ function renderPrintableCueSheet(story) {
     rBadge.textContent = item.role || '👥 隊員分工';
     const tBadge = document.createElement('span');
     tBadge.className = 'printable-cue-time';
-    tBadge.textContent = `⏱️ 建議 ${item.seconds || 15} 秒`;
+    tBadge.textContent = `⏱️ 建議 ${item.seconds || 30} 秒`;
     meta.append(pBadge, rBadge, tBadge);
     const title = document.createElement('strong');
     title.className = 'printable-cue-title';
@@ -218,6 +219,12 @@ function renderPrintableCueSheet(story) {
     say.className = 'printable-cue-say';
     say.textContent = item.say;
     card.append(meta, title, say);
+    if (item.demo) {
+      const demo = document.createElement('p');
+      demo.className = 'printable-cue-demo';
+      demo.textContent = item.demo;
+      card.append(demo);
+    }
     grid.append(card);
   }
   sheet.replaceChildren(heading, grid);
@@ -318,10 +325,15 @@ function showPage(page, remember = true, keepContinuous = false) {
   }));
   byId('page-extra-actions').hidden = !(slide.extraActions?.length);
   byId('speaker-text').textContent = slide.say;
+  const demoTextEl = byId('slide-demo-text');
+  if (demoTextEl) {
+    demoTextEl.textContent = slide.demo || '';
+    demoTextEl.hidden = !slide.demo;
+  }
   const roleBadge = byId('slide-role-badge');
   if (roleBadge) roleBadge.textContent = slide.role || '👥 隊員分工';
   const timeBadge = byId('slide-time-badge');
-  if (timeBadge) timeBadge.textContent = `⏱️ 建議 ${slide.seconds || 15} 秒`;
+  if (timeBadge) timeBadge.textContent = `⏱️ 建議 ${slide.seconds || 30} 秒`;
   const handoffBadge = byId('slide-handoff-badge');
   if (handoffBadge) {
     const handoffText = getSlideHandoffHint(state.page);
@@ -564,7 +576,9 @@ const copyScriptBtn = byId('copy-script-btn');
 let copyResetTimer = null;
 if (copyScriptBtn) {
   on(copyScriptBtn, 'click', async () => {
-    const text = byId('speaker-text')?.textContent || '';
+    const speakerText = byId('speaker-text')?.textContent || '';
+    const slide = state.slide;
+    const text = slide?.demo ? `${speakerText}\n${slide.demo}` : speakerText;
     const clipboard = window.navigator?.clipboard ?? (typeof navigator !== 'undefined' ? navigator.clipboard : null);
     const scheduleReset = (ms) => {
       if (copyResetTimer) clearTimeout(copyResetTimer);
