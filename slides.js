@@ -144,9 +144,30 @@ function renderJudgeQa(story) {
     const tag = document.createElement('span');
     tag.className = 'judge-qa-tag';
     tag.textContent = item.tag || `必考題 ${idx + 1}`;
+    head.append(tag);
+    if (item.responder) {
+      const resp = document.createElement('span');
+      resp.className = 'judge-qa-responder';
+      resp.textContent = item.responder;
+      head.append(resp);
+    }
     const q = document.createElement('strong');
     q.className = 'judge-qa-q';
     q.textContent = item.q;
+    head.append(q);
+    card.append(head);
+    if (item.highlight) {
+      const hl = document.createElement('p');
+      hl.className = 'judge-qa-highlight';
+      hl.textContent = item.highlight;
+      card.append(hl);
+    }
+    const ans = document.createElement('p');
+    ans.className = 'judge-qa-a';
+    ans.textContent = item.a;
+    card.append(ans);
+    const actionsRow = document.createElement('div');
+    actionsRow.className = 'judge-qa-actions';
     const speakBtn = document.createElement('button');
     speakBtn.type = 'button';
     speakBtn.className = 'speaker-tool-btn qa-speak-btn';
@@ -159,7 +180,8 @@ function renderJudgeQa(story) {
       stopAllSpeech();
       if (wasSpeakingThis) return;
       const session = ++speechSessionId;
-      const utterance = new UtteranceCtor(item.a);
+      const spokenText = item.highlight ? `${item.highlight} ${item.a}` : item.a;
+      const utterance = new UtteranceCtor(spokenText);
       utterance.lang = 'zh-TW';
       utterance.rate = getSpeechRate();
       speakBtn.textContent = '⏹ 停止朗讀';
@@ -179,11 +201,28 @@ function renderJudgeQa(story) {
         resetQaBtn();
       }
     });
-    head.append(tag, q, speakBtn);
-    const ans = document.createElement('p');
-    ans.className = 'judge-qa-a';
-    ans.textContent = item.a;
-    card.append(head, ans);
+    actionsRow.append(speakBtn);
+    if (item.evidencePage) {
+      const jumpBtn = document.createElement('button');
+      jumpBtn.type = 'button';
+      jumpBtn.className = 'speaker-tool-btn qa-evidence-jump-btn';
+      jumpBtn.textContent = `🔍 跳至 P${item.evidencePage} 簡報證據`;
+      jumpBtn.addEventListener('click', () => {
+        showPage(item.evidencePage);
+        byId('slide-main')?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
+      });
+      actionsRow.append(jumpBtn);
+    }
+    if (item.evidenceHref) {
+      const evLink = document.createElement('a');
+      evLink.className = 'speaker-tool-btn qa-evidence-link';
+      evLink.href = item.evidenceHref;
+      evLink.target = '_blank';
+      evLink.rel = 'noopener noreferrer';
+      evLink.textContent = item.evidenceLabel ? `${item.evidenceLabel} · 🚀 開啟實機證據畫面 ↗` : '🚀 開啟實機證據畫面 ↗';
+      actionsRow.append(evLink);
+    }
+    card.append(actionsRow);
     return card;
   }));
 }
@@ -215,10 +254,17 @@ function renderPrintableCueSheet(story) {
     const title = document.createElement('strong');
     title.className = 'printable-cue-title';
     title.textContent = item.title;
+    card.append(meta, title);
+    if (item.highlight) {
+      const hl = document.createElement('p');
+      hl.className = 'printable-cue-highlight';
+      hl.textContent = item.highlight;
+      card.append(hl);
+    }
     const say = document.createElement('p');
     say.className = 'printable-cue-say';
     say.textContent = item.say;
-    card.append(meta, title, say);
+    card.append(say);
     if (item.demo) {
       const demo = document.createElement('p');
       demo.className = 'printable-cue-demo';
@@ -325,10 +371,24 @@ function showPage(page, remember = true, keepContinuous = false) {
   }));
   byId('page-extra-actions').hidden = !(slide.extraActions?.length);
   byId('speaker-text').textContent = slide.say;
+  const highlightTextEl = byId('slide-highlight-text');
+  if (highlightTextEl) {
+    highlightTextEl.textContent = slide.highlight || '';
+    highlightTextEl.hidden = !slide.highlight;
+  }
   const demoTextEl = byId('slide-demo-text');
   if (demoTextEl) {
     demoTextEl.textContent = slide.demo || '';
     demoTextEl.hidden = !slide.demo;
+  }
+  const demoLinkEl = byId('slide-demo-link');
+  if (demoLinkEl) {
+    demoLinkEl.href = slide.href || story.journey;
+    demoLinkEl.textContent = `🚀 一鍵開啟本頁實機展示（${slide.action}）↗`;
+  }
+  const demoBoxEl = byId('slide-demo-box');
+  if (demoBoxEl) {
+    demoBoxEl.hidden = !slide.demo && !slide.href;
   }
   const roleBadge = byId('slide-role-badge');
   if (roleBadge) roleBadge.textContent = slide.role || '👥 隊員分工';
@@ -390,8 +450,10 @@ function showPage(page, remember = true, keepContinuous = false) {
     currentQuizItem = null;
     const quizBox = byId('qa-quiz-box');
     const revealBtn = byId('reveal-qa-btn');
+    const quizEvActions = byId('qa-quiz-evidence-actions');
     if (quizBox) quizBox.hidden = true;
     if (revealBtn) revealBtn.hidden = true;
+    if (quizEvActions) quizEvActions.hidden = true;
     renderJudgeQa(story);
     renderPrintableCueSheet(story);
   }
@@ -510,8 +572,58 @@ for (const btn of roleFilterBtns) {
     updateTimerDisplay();
   });
 }
+const teleprompterSizeBtn = byId('teleprompter-size-btn');
+if (teleprompterSizeBtn) {
+  on(teleprompterSizeBtn, 'click', () => {
+    const speakerBox = document.querySelector?.('.speaker');
+    if (!speakerBox) return;
+    const isLarge = speakerBox.classList.toggle('is-large-teleprompter');
+    teleprompterSizeBtn.classList.toggle('is-active', isLarge);
+    teleprompterSizeBtn.setAttribute('aria-pressed', String(isLarge));
+  });
+}
 const randomQaBtn = byId('random-qa-btn');
 const revealQaBtn = byId('reveal-qa-btn');
+const qaQuizJumpBtn = byId('qa-quiz-jump-btn');
+const qaTimerBtn = byId('qa-timer-btn');
+const qaTimerStatus = byId('qa-timer-status');
+let qaCountdownInterval = null;
+let qaRemainingSec = 0;
+
+function stopQaCountdown() {
+  if (qaCountdownInterval !== null) {
+    window.clearInterval(qaCountdownInterval);
+    qaCountdownInterval = null;
+  }
+  if (qaTimerBtn) {
+    qaTimerBtn.textContent = '⏱️ 20秒答題倒數';
+    qaTimerBtn.classList.remove('is-active');
+  }
+}
+
+if (qaTimerBtn) {
+  on(qaTimerBtn, 'click', () => {
+    if (qaCountdownInterval !== null) {
+      stopQaCountdown();
+      if (qaTimerStatus) qaTimerStatus.textContent = '';
+      return;
+    }
+    qaRemainingSec = 20;
+    qaTimerBtn.textContent = '⏹ 停止倒數';
+    qaTimerBtn.classList.add('is-active');
+    if (qaTimerStatus) qaTimerStatus.textContent = `⏱️ 剩餘 ${qaRemainingSec} 秒...`;
+    qaCountdownInterval = window.setInterval(() => {
+      qaRemainingSec -= 1;
+      if (qaRemainingSec > 0) {
+        if (qaTimerStatus) qaTimerStatus.textContent = `⏱️ 剩餘 ${qaRemainingSec} 秒...`;
+      } else {
+        stopQaCountdown();
+        if (qaTimerStatus) qaTimerStatus.textContent = '⏰ 20 秒到！請看滿分示範';
+      }
+    }, 1000);
+  });
+}
+
 if (randomQaBtn) {
   on(randomQaBtn, 'click', () => {
     const qaList = state.story.qa || [];
@@ -525,11 +637,17 @@ if (randomQaBtn) {
     const quizBox = byId('qa-quiz-box');
     const quizQ = byId('qa-quiz-question');
     const quizA = byId('qa-quiz-answer');
+    const quizEvActions = byId('qa-quiz-evidence-actions');
     if (quizBox) quizBox.hidden = false;
-    if (quizQ) quizQ.textContent = `🎤 評審提問：${currentQuizItem.q}（請先試著回答 15 秒，再按「揭曉滿分回答」！）`;
+    const responderHint = currentQuizItem.responder ? `（${currentQuizItem.responder}）` : '';
+    if (quizQ) quizQ.textContent = `🎤 評審提問：${currentQuizItem.q}${responderHint}（請先試著回答 15–20 秒，再按「揭曉滿分回答」！）`;
     if (quizA) {
       quizA.hidden = true;
-      quizA.textContent = `💡 滿分回答：${currentQuizItem.a}`;
+      quizA.textContent = currentQuizItem.highlight ? `${currentQuizItem.highlight}\n💡 滿分回答：${currentQuizItem.a}` : `💡 滿分回答：${currentQuizItem.a}`;
+    }
+    if (quizEvActions) quizEvActions.hidden = true;
+    if (qaQuizJumpBtn && currentQuizItem.evidencePage) {
+      qaQuizJumpBtn.textContent = `🔍 跳至 P${currentQuizItem.evidencePage} 簡報證據`;
     }
     if (revealQaBtn) revealQaBtn.hidden = false;
     stopAllSpeech();
@@ -539,10 +657,21 @@ if (randomQaBtn) {
 if (revealQaBtn) {
   on(revealQaBtn, 'click', () => {
     const quizA = byId('qa-quiz-answer');
+    const quizEvActions = byId('qa-quiz-evidence-actions');
     if (quizA) quizA.hidden = false;
+    if (quizEvActions) quizEvActions.hidden = !currentQuizItem?.evidencePage;
     if (currentQuizItem?.a) {
       stopAllSpeech();
-      speakTextOnce(currentQuizItem.a);
+      const spoken = currentQuizItem.highlight ? `${currentQuizItem.highlight} ${currentQuizItem.a}` : currentQuizItem.a;
+      speakTextOnce(spoken);
+    }
+  });
+}
+if (qaQuizJumpBtn) {
+  on(qaQuizJumpBtn, 'click', () => {
+    if (currentQuizItem?.evidencePage) {
+      showPage(currentQuizItem.evidencePage);
+      byId('slide-main')?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
     }
   });
 }
@@ -578,7 +707,8 @@ if (copyScriptBtn) {
   on(copyScriptBtn, 'click', async () => {
     const speakerText = byId('speaker-text')?.textContent || '';
     const slide = state.slide;
-    const text = slide?.demo ? `${speakerText}\n${slide.demo}` : speakerText;
+    const parts = [slide?.highlight, speakerText, slide?.demo].filter(Boolean);
+    const text = parts.join('\n');
     const clipboard = window.navigator?.clipboard ?? (typeof navigator !== 'undefined' ? navigator.clipboard : null);
     const scheduleReset = (ms) => {
       if (copyResetTimer) clearTimeout(copyResetTimer);
@@ -621,6 +751,7 @@ const timerDisplay = byId('timer-display');
 const timerToggleBtn = byId('timer-toggle-btn');
 const timerResetBtn = byId('timer-reset-btn');
 const timerBar = byId('rehearsal-timer-bar');
+const timerProgressFill = byId('timer-progress-fill');
 
 function currentElapsedMs() {
   if (timerStartedAt === null) return accumulatedMs;
@@ -640,8 +771,12 @@ function formatClock(sec) {
 
 function updateTimerDisplay() {
   const sec = Math.floor(currentElapsedMs() / 1000);
+  const target = getRoleConfig().targetSeconds;
   if (timerDisplay) timerDisplay.textContent = formatClock(sec);
-  if (timerBar) timerBar.classList.toggle('is-overtime', sec > getRoleConfig().targetSeconds);
+  if (timerBar) timerBar.classList.toggle('is-overtime', sec > target);
+  if (timerProgressFill) {
+    timerProgressFill.style.width = `${Math.min(100, Math.round((sec / target) * 100))}%`;
+  }
 }
 
 if (timerToggleBtn) {
@@ -748,6 +883,7 @@ applyUrlRoleAndPage(window.location.search);
 showPage(state.page, false);
 function dispose() {
   stopAllSpeech();
+  stopQaCountdown();
   if (timerInterval !== null) {
     window.clearInterval(timerInterval);
     timerInterval = null;
