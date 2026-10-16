@@ -409,6 +409,10 @@ function showPage(page, remember = true, keepContinuous = false) {
   byId('records-link').href = team === 'food' ? FOOD_APP+'/presentation?view=mine' : SOUND_APP+'/competition';
   byId('pdf-link').href = `${story.pdf}#page=${state.page}`;
   if (byId('error-pdf-link')) byId('error-pdf-link').href = `${story.pdf}#page=${state.page}`;
+  const downloadDeckBundle = byId('download-deck-bundle');
+  if (downloadDeckBundle) {
+    downloadDeckBundle.href = story.pdf;
+  }
   byId('ppt-link').href = story.pptx;
   byId('guide-link').href = `student-guide.html#${team}`;
   const switchTeam = byId('switch-team');
@@ -566,6 +570,8 @@ for (const btn of roleFilterBtns) {
   on(btn, 'click', () => {
     const nextRole = btn.dataset.role || 'all';
     activeRoleFilter = ROLE_CONFIG[nextRole] ? nextRole : 'all';
+    chime7mTriggered = false;
+    chime8mTriggered = false;
     syncRoleFilterButtons();
     const firstPage = getRoleConfig().pages[0] || 1;
     showPage(firstPage);
@@ -747,6 +753,30 @@ let timerInterval = null;
 let accumulatedMs = 0;
 let timerStartedAt = null;
 let tickFallbackCount = 0;
+let chime7mTriggered = false;
+let chime8mTriggered = false;
+
+function playStageChime(count = 1) {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return;
+  try {
+    const ctx = new AudioCtx();
+    for (let i = 0; i < count; i++) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      const startAt = ctx.currentTime + i * 0.38;
+      osc.frequency.setValueAtTime(880, startAt); // A5 chime bell
+      gain.gain.setValueAtTime(0.28, startAt);
+      gain.gain.exponentialRampToValueAtTime(0.001, startAt + 0.65);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(startAt);
+      osc.stop(startAt + 0.65);
+    }
+  } catch {}
+}
+
 const timerDisplay = byId('timer-display');
 const timerToggleBtn = byId('timer-toggle-btn');
 const timerResetBtn = byId('timer-reset-btn');
@@ -776,6 +806,16 @@ function updateTimerDisplay() {
   if (timerBar) timerBar.classList.toggle('is-overtime', sec > target);
   if (timerProgressFill) {
     timerProgressFill.style.width = `${Math.min(100, Math.round((sec / target) * 100))}%`;
+  }
+  if (activeRoleFilter === 'all' && timerInterval !== null) {
+    if (sec >= 420 && !chime7mTriggered) {
+      chime7mTriggered = true;
+      playStageChime(1);
+    }
+    if (sec >= 480 && !chime8mTriggered) {
+      chime8mTriggered = true;
+      playStageChime(2);
+    }
   }
 }
 
@@ -812,6 +852,8 @@ if (timerResetBtn) {
     accumulatedMs = 0;
     timerStartedAt = null;
     tickFallbackCount = 0;
+    chime7mTriggered = false;
+    chime8mTriggered = false;
     updateTimerDisplay();
     if (timerToggleBtn) timerToggleBtn.textContent = '▶ 開始計時';
     if (timerBar) timerBar.classList.remove('is-running', 'is-overtime');
@@ -830,6 +872,8 @@ function applyUrlRoleAndPage(searchStr) {
   } else {
     activeRoleFilter = 'all';
   }
+  chime7mTriggered = false;
+  chime8mTriggered = false;
   syncRoleFilterButtons();
   updateTimerDisplay();
 }
@@ -889,6 +933,8 @@ function dispose() {
     timerInterval = null;
   }
   timerStartedAt = null;
+  chime7mTriggered = false;
+  chime8mTriggered = false;
   if (copyResetTimer) {
     clearTimeout(copyResetTimer);
     copyResetTimer = null;
