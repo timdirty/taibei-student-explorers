@@ -406,6 +406,10 @@ function showPage(page, remember = true, keepContinuous = false) {
   if (byId('slide-pace-hint')) byId('slide-pace-hint').textContent = getSlidePaceHint(state.page, slide);
   byId('previous-slide').disabled = state.page === 1;
   byId('next-slide').disabled = state.page === story.slides.length;
+  const prevTapEl = byId('slide-prev-tap');
+  if (prevTapEl) prevTapEl.disabled = state.page === 1;
+  const nextTapEl = byId('slide-next-tap');
+  if (nextTapEl) nextTapEl.disabled = state.page === story.slides.length;
   byId('records-link').href = team === 'food' ? FOOD_APP+'/presentation?view=mine' : SOUND_APP+'/competition';
   byId('pdf-link').href = `${story.pdf}#page=${state.page}`;
   if (byId('error-pdf-link')) byId('error-pdf-link').href = `${story.pdf}#page=${state.page}`;
@@ -512,6 +516,10 @@ on(slideImg, 'touchend', event => {
 on(byId('slide-picker'), 'change', event => showPage(Number(event.target.value)));
 on(byId('previous-slide'), 'click', () => showPage(state.page-1));
 on(byId('next-slide'), 'click', () => showPage(state.page+1));
+const slidePrevTap = byId('slide-prev-tap');
+const slideNextTap = byId('slide-next-tap');
+if (slidePrevTap) on(slidePrevTap, 'click', () => { if (state.page > 1) showPage(state.page - 1); });
+if (slideNextTap) on(slideNextTap, 'click', () => { if (state.page < TEAM_STORIES[state.team].slides.length) showPage(state.page + 1); });
 const speakSlideBtn = byId('speak-slide-btn');
 if (speakSlideBtn) {
   on(speakSlideBtn, 'click', () => {
@@ -756,11 +764,29 @@ let tickFallbackCount = 0;
 let chime7mTriggered = false;
 let chime8mTriggered = false;
 
+let sharedAudioCtx = null;
+function getSharedAudioContext() {
+  if (!sharedAudioCtx) {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      try {
+        sharedAudioCtx = new AudioCtx();
+      } catch {}
+    }
+  }
+  if (sharedAudioCtx && sharedAudioCtx.state === 'suspended') {
+    sharedAudioCtx.resume().catch(() => {});
+  }
+  return sharedAudioCtx;
+}
+
+window.addEventListener('pointerdown', () => getSharedAudioContext(), { once: true, passive: true });
+window.addEventListener('keydown', () => getSharedAudioContext(), { once: true, passive: true });
+
 function playStageChime(count = 1) {
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  if (!AudioCtx) return;
   try {
-    const ctx = new AudioCtx();
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
     for (let i = 0; i < count; i++) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -821,6 +847,7 @@ function updateTimerDisplay() {
 
 if (timerToggleBtn) {
   on(timerToggleBtn, 'click', () => {
+    getSharedAudioContext();
     if (timerInterval !== null) {
       accumulatedMs = currentElapsedMs();
       timerStartedAt = null;
@@ -908,7 +935,14 @@ on(window, 'keydown', event => {
     showPage(TEAM_STORIES[state.team].slides.length);
     return;
   }
-  if (event.key === ' ' && !inInteractive && speakSlideBtn) {
+  if (event.key === ' ' && !inInteractive) {
+    event.preventDefault();
+    if (state.page < TEAM_STORIES[state.team].slides.length) {
+      showPage(state.page + 1);
+    }
+    return;
+  }
+  if ((event.key === 's' || event.key === 'S') && !inInteractive && speakSlideBtn) {
     event.preventDefault();
     speakSlideBtn.click();
     return;
