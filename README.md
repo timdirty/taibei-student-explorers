@@ -5,4 +5,4 @@
 - 網站：https://timdirty.github.io/taibei-student-explorers/
 - 同一份內容也在：https://foodlens-school.vercel.app/students/
 
-這個 repo 由私有總庫自動同步（來源 commit `6cd6ca4`），請不要直接在這裡修改。
+這個 repo 由私有總庫自動同步（來源 commit `3eb0443`），請不要直接在這裡修改。

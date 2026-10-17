@@ -416,6 +416,12 @@ function showPage(page, remember = true, keepContinuous = false) {
   const downloadDeckBundle = byId('download-deck-bundle');
   if (downloadDeckBundle) {
     downloadDeckBundle.href = story.pdf;
+    downloadDeckBundle.title = `下載 ${story.name} 離線簡報 PDF`;
+  }
+  const downloadDeckPptx = byId('download-deck-pptx');
+  if (downloadDeckPptx) {
+    downloadDeckPptx.href = story.pptx;
+    downloadDeckPptx.title = `下載 ${story.name} 離線可編輯 PPTX`;
   }
   byId('ppt-link').href = story.pptx;
   byId('guide-link').href = `student-guide.html#${team}`;
